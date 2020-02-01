@@ -34,7 +34,8 @@ class App extends React.Component {
     };
 
     validateNumbers = () => {
-        if (+this.state.maxCounter < +this.state.minCounter) {
+        if ((this.state.maxInputChangedValue === '' ? +this.state.maxInputValue :
+            +this.state.maxInputChangedValue) < +this.state.minInputChangedValue) {
             this.setState({isNumberValuesNotValid: true})
         } else this.setState({isNumberValuesNotValid: false})
     };
@@ -48,12 +49,12 @@ class App extends React.Component {
     };
 
     updateMaxValuesFromInputs = (e) => {
-        let value = e.target.value;
+        let value = e.currentTarget.value;
         this.setState({maxInputChangedValue: value})
     };
 
     updateMinValuesFromInputs = (e) => {
-        let value = e.target.value;
+        let value = e.currentTarget.value;
         this.setState({minInputChangedValue: value})
     };
 
