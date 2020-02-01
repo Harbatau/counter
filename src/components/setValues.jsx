@@ -3,21 +3,39 @@ import '../App.sass';
 import ControlButton from "./buttons";
 
 const Settings = (props) => {
+
+    const maxFocusHandler = () => {
+        props.onFocusAndBlurHandler({maxInputChangedValue: ''})
+    };
+    const minFocusHandler = () => {
+        props.onFocusAndBlurHandler({minInputChangedValue: ''})
+    };
+    const maxBlurHandler = () => {
+        if (props.data.maxInputChangedValue === '')
+        props.onFocusAndBlurHandler({maxInputChangedValue: props.data.maxInputValue})
+    };
+    const minBlurHandler = () => {
+        if (props.data.minInputChangedValue === '')
+        props.onFocusAndBlurHandler({minInputChangedValue: props.data.minInputValue})
+    };
+
     return (
         <div>
             <div>
                 <span>max value</span>
                 <input className={'optionsInput'} type={'number'}
-                       value={props.maxInputValue === Infinity ? '∞' :props.maxInputValue}
-                       onChange={props.updateMaxValuesFromInputs}/>
+                       onFocus={maxFocusHandler} onBlur={maxBlurHandler}
+                       value={props.data.maxInputChangedValue}
+                       onChange={(e) => {props.updateMaxValuesFromInputs(e); props.settingsValidation()}}/>
             </div>
             <div>
                 <span>min value</span>
-                <input className={'optionsInput'} type={'number'} value={props.minInputValue}
-                       onChange={props.updateMainValuesFromInputs}/>
+                <input className={'optionsInput'} type={'number'} value={props.data.minInputChangedValue}
+                       onChange={(e) => {props.updateMinValuesFromInputs(e); props.settingsValidation()}}
+                       onFocus={minFocusHandler} onBlur={minBlurHandler}/>
             </div>
             <ControlButton onClickHandler={props.setValues} buttonProperty={'Set options'}
-                           disableMonitor={props.isButtonNotReady}/>
+                           disableMonitor={props.data.isSettingButtonNotReady}/>
         </div>
     )
 };

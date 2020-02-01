@@ -8,10 +8,13 @@ class App extends React.Component {
     state = {
         counter: 0,
         minCounter: 0,
-        maxCounter: Infinity,
+        maxCounter: 99,
         isSettingButtonNotReady: true,
-        maxInputValue: Infinity,
-        minInputValue: 0
+        maxInputValue: '99',
+        minInputValue: '0',
+        maxInputChangedValue: '99',
+        minInputChangedValue: '0'
+
     };
 
     setUnitToCounter = () => {
@@ -24,22 +27,32 @@ class App extends React.Component {
     };
 
     setValues = () => {
-        this.setState({counter: +this.state.minInputValue, minCounter: +this.state.minInputValue,
-            maxCounter: +this.state.maxInputValue})
+        this.setState({
+            counter: +this.state.minInputChangedValue, minCounter: +this.state.minInputChangedValue,
+            maxCounter: +this.state.maxInputChangedValue, isSettingButtonNotReady: true
+        })
     };
 
     settingsValidation = () => {
-        if (this.state.minCounter !== this.state.minInputValue &&
-            this.state.maxCounter !== this.state.maxInputValue)
-        this.setState({isSettingButtonNotReady: !this.state.isSettingButtonNotReady})
+        if (`${this.state.minCounter}` !== this.state.minInputChangedValue &&
+            `${this.state.maxCounter}` !== this.state.maxInputChangedValue) {
+            this.setState({isSettingButtonNotReady: false})
+        } else this.setState({isSettingButtonNotReady: true});
+        console.log(this.state)
     };
 
     updateMaxValuesFromInputs = (e) => {
-        this.setState({maxInputValue: e.target.value})
+        let value = e.target.value;
+        this.setState({maxInputChangedValue: value})
     };
 
-    updateMainValuesFromInputs = (e) => {
-        this.setState({minInputValue: e.target.value})
+    updateMinValuesFromInputs = (e) => {
+        let value = e.target.value;
+        this.setState({minInputChangedValue: value})
+    };
+
+    onFocusAndBlurHandler = (object) => {
+        this.setState(object)
     };
 
     render() {
@@ -49,14 +62,15 @@ class App extends React.Component {
                          maxValue={this.state.maxCounter}
                          setUnitToCounter={this.setUnitToCounter} reset={this.reset}/>
                 <Settings setValues={this.setValues} settingsValidation={this.settingsValidation}
-                          isButtonNotReady={this.state.isSettingButtonNotReady}
                           updateMaxValuesFromInputs={this.updateMaxValuesFromInputs}
-                          updateMainValuesFromInputs={this.updateMainValuesFromInputs}
-                          maxInputValue={this.state.maxInputValue} minInputValue={this.state.minInputValue}/>
+                          updateMinValuesFromInputs={this.updateMinValuesFromInputs}
+                          onFocusAndBlurHandler={this.onFocusAndBlurHandler} data={this.state}
+                          />
             </div>
         );
     }
 }
 
 export default App;
+
 
