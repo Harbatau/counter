@@ -10,11 +10,11 @@ class App extends React.Component {
         minCounter: 0,
         maxCounter: 99,
         isSettingButtonNotReady: true,
+        isNumberValuesNotValid: false,
         maxInputValue: '99',
         minInputValue: '0',
         maxInputChangedValue: '99',
         minInputChangedValue: '0'
-
     };
 
     setUnitToCounter = () => {
@@ -33,9 +33,15 @@ class App extends React.Component {
         })
     };
 
+    validateNumbers = () => {
+        if (+this.state.maxCounter < +this.state.minCounter) {
+            this.setState({isNumberValuesNotValid: true})
+        } else this.setState({isNumberValuesNotValid: false})
+    };
+
     settingsValidation = () => {
-        if (`${this.state.minCounter}` !== this.state.minInputChangedValue &&
-            `${this.state.maxCounter}` !== this.state.maxInputChangedValue) {
+        if (this.state.minCounter !== +this.state.minInputChangedValue ||
+            this.state.maxCounter !== +this.state.maxInputChangedValue) {
             this.setState({isSettingButtonNotReady: false})
         } else this.setState({isSettingButtonNotReady: true});
         console.log(this.state)
@@ -65,7 +71,9 @@ class App extends React.Component {
                           updateMaxValuesFromInputs={this.updateMaxValuesFromInputs}
                           updateMinValuesFromInputs={this.updateMinValuesFromInputs}
                           onFocusAndBlurHandler={this.onFocusAndBlurHandler} data={this.state}
-                          />
+                          isNumberValuesNotValid={this.state.isNumberValuesNotValid}
+                          validateNumbers={this.validateNumbers}
+                />
             </div>
         );
     }
