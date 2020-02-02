@@ -13,13 +13,10 @@ class App extends React.Component {
         isNumberValuesNotValid: false,
         maxInputValue: '99',
         minInputValue: '0',
-        maxInputChangedValue: '99',
-        minInputChangedValue: '0'
     };
 
     setUnitToCounter = () => {
-        let counterValue = this.state.counter + 1;
-        this.setState({counter: counterValue});
+        this.setState({counter: this.state.counter + 1});
     };
 
     reset = () => {
@@ -28,38 +25,51 @@ class App extends React.Component {
 
     setValues = () => {
         this.setState({
-            counter: +this.state.minInputChangedValue, minCounter: +this.state.minInputChangedValue,
-            maxCounter: +this.state.maxInputChangedValue, isSettingButtonNotReady: true
+            counter: +this.state.minInputValue, minCounter: +this.state.minInputValue,
+            maxCounter: +this.state.maxInputValue, isSettingButtonNotReady: true
         })
     };
 
-    validateNumbers = () => {
-        if ((this.state.maxInputChangedValue === '' ? +this.state.maxInputValue :
-            +this.state.maxInputChangedValue) < +this.state.minInputChangedValue) {
-            this.setState({isNumberValuesNotValid: true})
-        } else this.setState({isNumberValuesNotValid: false})
-    };
-
-    settingsValidation = () => {
-        if (this.state.minCounter !== +this.state.minInputChangedValue ||
-            this.state.maxCounter !== +this.state.maxInputChangedValue) {
-            this.setState({isSettingButtonNotReady: false})
-        } else this.setState({isSettingButtonNotReady: true});
-        console.log(this.state)
-    };
-
-    updateMaxValuesFromInputs = (e) => {
+    updateValuesFromInputs = (e, input) => {
         let value = e.currentTarget.value;
-        this.setState({maxInputChangedValue: value})
+        switch (input) {
+            case 'maxInput':
+                this.setState({maxInputValue: value});
+                if (this.state.maxCounter !== +value) {
+                    this.setState({isSettingButtonNotReady: false})
+                } else this.setState({isSettingButtonNotReady: true});
+                if (+value < +this.state.minInputValue) {
+                    this.setState({isNumberValuesNotValid: true})
+                } else this.setState({isNumberValuesNotValid: false});
+                break;
+            case 'minInput':
+                this.setState({minInputValue: value});
+                if (this.state.minCounter !== +value) {
+                    this.setState({isSettingButtonNotReady: false})
+                } else this.setState({isSettingButtonNotReady: true});
+                if (+this.state.maxInputValue < +value) {
+                    this.setState({isNumberValuesNotValid: true})
+                } else this.setState({isNumberValuesNotValid: false});
+                break;
+        }
     };
 
-    updateMinValuesFromInputs = (e) => {
+    onBlurHandler = (e, input) => {
         let value = e.currentTarget.value;
-        this.setState({minInputChangedValue: value})
-    };
-
-    onFocusAndBlurHandler = (object) => {
-        this.setState(object)
+        switch (input) {
+            case 'maxInput':
+                if (value === '') {
+                    this.setState({maxInputValue: `${this.state.maxCounter}`});
+                    e.currentTarget.value = `${this.state.maxValue}`
+                } else e.currentTarget.value = this.state.maxInputValue;
+                break;
+            case 'minInput':
+                if (value === '') {
+                    this.setState({minInputValue: `${this.state.minCounter}`});
+                    e.currentTarget.value = `${this.state.minValue}`
+                } else e.currentTarget.value = this.state.minInputValue;
+                break;
+        }
     };
 
     render() {
@@ -68,12 +78,12 @@ class App extends React.Component {
                 <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
                          maxValue={this.state.maxCounter}
                          setUnitToCounter={this.setUnitToCounter} reset={this.reset}/>
-                <Settings setValues={this.setValues} settingsValidation={this.settingsValidation}
-                          updateMaxValuesFromInputs={this.updateMaxValuesFromInputs}
-                          updateMinValuesFromInputs={this.updateMinValuesFromInputs}
-                          onFocusAndBlurHandler={this.onFocusAndBlurHandler} data={this.state}
+                <Settings setValues={this.setValues}
+                          updateValuesFromInputs={this.updateValuesFromInputs}
+                          maxInputValue={this.state.maxInputValue} minInputValue={this.state.minInputValue}
                           isNumberValuesNotValid={this.state.isNumberValuesNotValid}
-                          validateNumbers={this.validateNumbers}
+                          isSettingButtonNotReady={this.state.isSettingButtonNotReady}
+                          onBlurHandler={this.onBlurHandler}
                 />
             </div>
         );

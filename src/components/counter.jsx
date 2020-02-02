@@ -5,7 +5,7 @@ import ControlButton from "./buttons";
 
 const Counter = (props) => {
     return(
-        <div>
+        <div className={'counter'}>
             <CounterDisplay counterNumber={props.counterNumber}
                             alertMonitor={props.counterNumber !== props.maxValue}/>
             <ControlButton buttonProperty={'increment'} onClickHandler={props.setUnitToCounter}

@@ -4,48 +4,45 @@ import ControlButton from "./buttons";
 
 const Settings = (props) => {
 
-    const maxBlurHandler = () => {
-        if (props.data.maxInputChangedValue === '') {
-            props.onFocusAndBlurHandler({maxInputChangedValue: props.data.maxInputValue})
-        } else {
-            props.onFocusAndBlurHandler({maxInputValue: props.data.maxInputChangedValue})
-        }
+
+    const maxBlurHandler = (e) => {
+        /*if (e.currentTarget.value === '') e.currentTarget.value = `${props.maxValue}`;*/
+        e.currentTarget.value = props.maxInputValue
     };
-    const minBlurHandler = () => {
-        if (props.data.minInputChangedValue === '') {
-            props.onFocusAndBlurHandler({minInputChangedValue: props.data.minInputValue})
-        } else {
-            props.onFocusAndBlurHandler({minInputValue: props.data.minInputChangedValue})
-        }
+    const minBlurHandler = (e) => {
+        if (e.currentTarget.value === '') e.currentTarget.value = `${props.minValue}`;
+        else e.currentTarget.value = props.minInputValue
     };
 
+
     return (
-        <div>
+        <div className={'settings'}>
             <div>
                 <span>max value</span>
                 <input className={'optionsInput'} type={'number'}
                        onFocus={(e) => {e.currentTarget.value = ''}}
-                       onBlur={() => {maxBlurHandler(); props.validateNumbers()}}
-                       value={props.data.maxInputChangedValue}
-                       onChange={(e) => {
-                           props.updateMaxValuesFromInputs(e);
-                           props.settingsValidation();
-                       }}/>
+                       onBlur={(e) => props.onBlurHandler(e, 'maxInput')}
+                       value={props.maxInputValue}
+                       onChange={(e) => {props.updateValuesFromInputs(e, 'maxInput');
+
+                       }}
+                />
             </div>
             <div>
                 <span>min value</span>
-                <input className={'optionsInput'} type={'number'} value={props.data.minInputChangedValue}
-                       onChange={(e) => {
-                           props.updateMinValuesFromInputs(e);
-                           props.settingsValidation();
-                       }}
+                <input className={'optionsInput'} type={'number'}
                        onFocus={(e) => {e.currentTarget.value = ''}}
-                       onBlur={() => {minBlurHandler(); props.validateNumbers()}}/>
+                       onBlur={(e) => props.onBlurHandler(e, 'minInput')}
+                       value={props.minInputValue}
+                       onChange={(e) => {props.updateValuesFromInputs(e, 'minInput');
+                       }}
+                />
             </div>
             <ControlButton onClickHandler={props.setValues}
                            buttonProperty={'Set options'}
-                           disableMonitor={(props.data.isSettingButtonNotReady ||
-                               props.isNumberValuesNotValid)}/>
+                           disableMonitor={(props.isSettingButtonNotReady ||
+                               props.isNumberValuesNotValid)}
+            />
             <div className={props.isNumberValuesNotValid ? 'alertMessage' : 'displayNone'}>
                 Число MAX !>= MIN
             </div>
