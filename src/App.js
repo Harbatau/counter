@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.sass';
 import Counter from "./components/counter";
-import Settings from "./components/setValues";
+import Settings from "./components/Settings";
 
 class App extends React.Component {
 
@@ -13,6 +13,8 @@ class App extends React.Component {
         isNumberValuesNotValid: false,
         maxInputValue: '99',
         minInputValue: '0',
+        lastRealMaxValue: '99',
+        lastRealMinValue: '0'
     };
 
     setUnitToCounter = () => {
@@ -59,16 +61,20 @@ class App extends React.Component {
         switch (input) {
             case 'maxInput':
                 if (value === '') {
-                    this.setState({maxInputValue: `${this.state.maxCounter}`});
-                    e.currentTarget.value = `${this.state.maxValue}`
-                } else e.currentTarget.value = this.state.maxInputValue;
-                break;
+                    this.setState({maxInputValue: `${this.state.lastRealMaxValue}`});
+                    e.currentTarget.value = `${this.state.lastRealMaxValue}`
+                } else {
+                    this.setState({lastRealMaxValue: value});
+                    e.currentTarget.value = this.state.maxInputValue;
+                } break;
             case 'minInput':
                 if (value === '') {
-                    this.setState({minInputValue: `${this.state.minCounter}`});
-                    e.currentTarget.value = `${this.state.minValue}`
-                } else e.currentTarget.value = this.state.minInputValue;
-                break;
+                    this.setState({minInputValue: `${this.state.lastRealMinValue}`});
+                    e.currentTarget.value = `${this.state.lastRealMinValue}`
+                } else {
+                    this.setState({lastRealMinValue: value});
+                    e.currentTarget.value = this.state.minInputValue;
+                } break;
         }
     };
 
