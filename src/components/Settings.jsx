@@ -9,16 +9,20 @@ const Settings = (props) => {
         <div className={'settings'}>
             <div className={'flex settingsInputs'}>
                 <SettingsInput blur={(e) => props.onBlurHandler(e, 'maxInput')}
-                               value={props.maxInputValue} inputName={'max value'}
+                               data={props.maxInput} inputName={'max value'}
+                               id={'maxInput'}
                                change={(e) => {
                                    props.updateValuesFromInputs(e, 'maxInput')
                                }}
+                               focus={() => props.onFocusHandler('maxInput')}
                 />
                 <SettingsInput blur={(e) => props.onBlurHandler(e, 'minInput')}
-                               value={props.minInputValue} inputName={'min value'}
+                               data={props.minInput} inputName={'min value'}
+                               id={'minInput'}
                                change={(e) => {
                                    props.updateValuesFromInputs(e, 'minInput')
                                }}
+                               focus={() => props.onFocusHandler('minInput')}
                 />
             </div>
             <ControlButton onClickHandler={props.setValues}
@@ -26,8 +30,8 @@ const Settings = (props) => {
                            disableMonitor={(props.isSettingButtonNotReady ||
                                props.isNumberValuesNotValid)}
             />
-            <div className={/*props.isNumberValuesNotValid ? 'alertMessage' : 'displayNone'*/'alertMessage'}>
-                minValue cannot be greater than maxValue!
+            <div className={props.isNumberValuesNotValid ? 'alertMessage' : 'alertMessage opacityZero'}>
+                minValue cannot be greater than maxValue
             </div>
         </div>
     )

@@ -11,10 +11,18 @@ class App extends React.Component {
         maxCounter: 99,
         isSettingButtonNotReady: true,
         isNumberValuesNotValid: false,
-        maxInputValue: '99',
-        minInputValue: '0',
-        lastRealMaxValue: '99',
-        lastRealMinValue: '0'
+        minInput: {
+            inputValue: '0',
+            lastRealValue: '0',
+            isInputFocused: false,
+            isValueEqualToCurrentSetting: true
+        },
+        maxInput: {
+            inputValue: '99',
+            lastRealValue: '99',
+            isInputFocused: false,
+            isValueEqualToCurrentSetting: true
+        }
     };
 
     setUnitToCounter = () => {
@@ -27,8 +35,12 @@ class App extends React.Component {
 
     setValues = () => {
         this.setState({
-            counter: +this.state.minInputValue, minCounter: +this.state.minInputValue,
-            maxCounter: +this.state.maxInputValue, isSettingButtonNotReady: true
+            counter: this.state.minInput.inputValue === '' ? +this.state.minInput.lastRealValue : +this.state.minInput.inputValue,
+            minCounter: this.state.minInput.inputValue === '' ? +this.state.minInput.lastRealValue : +this.state.minInput.inputValue,
+            maxCounter: this.state.maxInput.inputValue === '' ? +this.state.maxInput.lastRealValue : +this.state.maxInput.inputValue,
+            isSettingButtonNotReady: true,
+            minInput: {...this.state.minInput, isValueEqualToCurrentSetting: true},
+            maxInput: {...this.state.maxInput, isValueEqualToCurrentSetting: true}
         })
     };
 
@@ -36,22 +48,47 @@ class App extends React.Component {
         let value = e.currentTarget.value;
         switch (input) {
             case 'maxInput':
-                this.setState({maxInputValue: value});
-                if (this.state.maxCounter !== +value) {
+                this.setState({maxInput: {...this.state.maxInput, inputValue: value}});
+                if (this.state.maxCounter !== +value ||
+                    this.state.minCounter !== +this.state.minInput.lastRealValue) {
                     this.setState({isSettingButtonNotReady: false})
                 } else this.setState({isSettingButtonNotReady: true});
-                if (+value < +this.state.minInputValue) {
+                if (+value < +this.state.minInput.lastRealValue) {
                     this.setState({isNumberValuesNotValid: true})
                 } else this.setState({isNumberValuesNotValid: false});
                 break;
             case 'minInput':
-                this.setState({minInputValue: value});
-                if (this.state.minCounter !== +value) {
+                this.setState({minInput: {...this.state.minInput, inputValue: value}});
+                if (this.state.minCounter !== +value ||
+                    this.state.maxCounter !== +this.state.maxInput.lastRealValue) {
                     this.setState({isSettingButtonNotReady: false})
                 } else this.setState({isSettingButtonNotReady: true});
-                if (+this.state.maxInputValue < +value) {
+                if (+this.state.maxInput.lastRealValue < +value) {
                     this.setState({isNumberValuesNotValid: true})
                 } else this.setState({isNumberValuesNotValid: false});
+                break;
+        }
+    };
+
+    onFocusHandler = (input) => {
+        switch (input) {
+            case 'maxInput':
+                this.setState({
+                    maxInput: {
+                        ...this.state.maxInput,
+                        inputValue: '',
+                        isInputFocused: true
+                    }
+                });
+                break;
+            case 'minInput':
+                this.setState({
+                    minInput: {
+                        ...this.state.minInput,
+                        inputValue: '',
+                        isInputFocused: true
+                    }
+                });
                 break;
         }
     };
@@ -61,21 +98,59 @@ class App extends React.Component {
         switch (input) {
             case 'maxInput':
                 if (value === '') {
-                    this.setState({maxInputValue: `${this.state.lastRealMaxValue}`});
-                    e.currentTarget.value = `${this.state.lastRealMaxValue}`
+                    this.setState({
+                        maxInput: {
+                            ...this.state.maxInput,
+                            isInputFocused: false
+                        }
+                    });
+                } else if (+value === this.state.minCounter) {
+                    this.setState({
+                        maxInput: {
+                            ...this.state.maxInput,
+                            lastRealValue: value,
+                            isInputFocused: false,
+                            isValueEqualToCurrentSetting: true
+                        }
+                    });
                 } else {
-                    this.setState({lastRealMaxValue: value});
-                    e.currentTarget.value = this.state.maxInputValue;
-                }
+                    this.setState({
+                        maxInput: {
+                            ...this.state.maxInput,
+                            lastRealValue: value,
+                            isInputFocused: false,
+                            isValueEqualToCurrentSetting: false
+                        }
+                    })
+                };
                 break;
             case 'minInput':
                 if (value === '') {
-                    this.setState({minInputValue: `${this.state.lastRealMinValue}`});
-                    e.currentTarget.value = `${this.state.lastRealMinValue}`
+                    this.setState({
+                        minInput: {
+                            ...this.state.minInput,
+                            isInputFocused: false
+                        }
+                    });
+                } else if (+value === this.state.maxCounter) {
+                    this.setState({
+                        minInput: {
+                            ...this.state.minInput,
+                            lastRealValue: value,
+                            isInputFocused: false,
+                            isValueEqualToCurrentSetting: true
+                        }
+                    });
                 } else {
-                    this.setState({lastRealMinValue: value});
-                    e.currentTarget.value = this.state.minInputValue;
-                }
+                    this.setState({
+                        minInput: {
+                            ...this.state.minInput,
+                            lastRealValue: value,
+                            isInputFocused: false,
+                            isValueEqualToCurrentSetting: false
+                        }
+                    })
+                };
                 break;
         }
     };
@@ -89,10 +164,12 @@ class App extends React.Component {
                              setUnitToCounter={this.setUnitToCounter} reset={this.reset}/>
                     <Settings setValues={this.setValues}
                               updateValuesFromInputs={this.updateValuesFromInputs}
-                              maxInputValue={this.state.maxInputValue} minInputValue={this.state.minInputValue}
                               isNumberValuesNotValid={this.state.isNumberValuesNotValid}
                               isSettingButtonNotReady={this.state.isSettingButtonNotReady}
+                              onFocusHandler={this.onFocusHandler}
                               onBlurHandler={this.onBlurHandler}
+                              maxInput={this.state.maxInput}
+                              minInput={this.state.minInput}
                     />
                 </div>
             </div>
