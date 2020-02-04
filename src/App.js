@@ -66,7 +66,8 @@ class App extends React.Component {
                 } else {
                     this.setState({lastRealMaxValue: value});
                     e.currentTarget.value = this.state.maxInputValue;
-                } break;
+                }
+                break;
             case 'minInput':
                 if (value === '') {
                     this.setState({minInputValue: `${this.state.lastRealMinValue}`});
@@ -74,23 +75,26 @@ class App extends React.Component {
                 } else {
                     this.setState({lastRealMinValue: value});
                     e.currentTarget.value = this.state.minInputValue;
-                } break;
+                }
+                break;
         }
     };
 
     render() {
         return (
             <div className="App">
-                <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
-                         maxValue={this.state.maxCounter}
-                         setUnitToCounter={this.setUnitToCounter} reset={this.reset}/>
-                <Settings setValues={this.setValues}
-                          updateValuesFromInputs={this.updateValuesFromInputs}
-                          maxInputValue={this.state.maxInputValue} minInputValue={this.state.minInputValue}
-                          isNumberValuesNotValid={this.state.isNumberValuesNotValid}
-                          isSettingButtonNotReady={this.state.isSettingButtonNotReady}
-                          onBlurHandler={this.onBlurHandler}
-                />
+                <div className={'wrapper'}>
+                    <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
+                             maxValue={this.state.maxCounter}
+                             setUnitToCounter={this.setUnitToCounter} reset={this.reset}/>
+                    <Settings setValues={this.setValues}
+                              updateValuesFromInputs={this.updateValuesFromInputs}
+                              maxInputValue={this.state.maxInputValue} minInputValue={this.state.minInputValue}
+                              isNumberValuesNotValid={this.state.isNumberValuesNotValid}
+                              isSettingButtonNotReady={this.state.isSettingButtonNotReady}
+                              onBlurHandler={this.onBlurHandler}
+                    />
+                </div>
             </div>
         );
     }
