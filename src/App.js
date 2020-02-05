@@ -168,7 +168,8 @@ class App extends React.Component {
         this.setState({isSettingsOpened: true})
     };
 
-    render() {
+        render() {
+            window.stote = this.state;
         return (
             <>
                 <div className={this.state.isFirstVersion ? 'verSwitcher' : 'verSwitcher secondVersion'}
@@ -196,25 +197,6 @@ class App extends React.Component {
                         />
                     </div>
                 </div>
-                {/*{!this.state.isFirstVersion  &&
-                <div className="App secondVersionApp">
-                    <div className={'wrapper'}>
-                        <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
-                                 maxValue={this.state.maxCounter}
-                                 setUnitToCounter={this.setUnitToCounter} reset={this.reset}
-                                 openSettings={this.openSettings} isFirstVersion={this.state.isFirstVersion}
-                                 />
-                        <Settings setValues={this.setValues}
-                                  updateValuesFromInputs={this.updateValuesFromInputs}
-                                  isNumberValuesNotValid={this.state.isNumberValuesNotValid}
-                                  isSettingButtonNotReady={this.state.isSettingButtonNotReady}
-                                  onFocusHandler={this.onFocusHandler}
-                                  onBlurHandler={this.onBlurHandler}
-                                  maxInput={this.state.maxInput}
-                                  minInput={this.state.minInput}
-                        />
-                    </div>
-                </div>}*/}
             </>
         );
     };
