@@ -43,7 +43,8 @@ class App extends React.Component {
             isSettingButtonNotReady: true,
             minInput: {...this.state.minInput, isValueEqualToCurrentSetting: true},
             maxInput: {...this.state.maxInput, isValueEqualToCurrentSetting: true}
-        })
+        });
+        if (!this.state.isFirstVersion) this.setState({isSettingsOpened: false});
     };
 
     updateValuesFromInputs = (e, input) => {
@@ -164,41 +165,45 @@ class App extends React.Component {
     };
 
     openSettings = () => {
-        this.setState({isSettingsOpened: false})
+        this.setState({isSettingsOpened: true})
     };
 
     render() {
         return (
             <>
-                <div className={this.state.isFirstVersion ? 'verSwitcher': 'verSwitcher secondVersion'} onClick={this.switchVersion}>
+                <div className={this.state.isFirstVersion ? 'verSwitcher' : 'verSwitcher secondVersion'}
+                     onClick={this.switchVersion}>
                     <span className={'currentVersionIsOne'}>1st version</span>
                     <span className={'currentVersionIsTwo'}>2nd version</span>
                     <div className={'switcher'}/>
                 </div>
-                {this.state.isFirstVersion &&
-                <div className="App">
+                <div className={this.state.isFirstVersion ? 'App' : 'App secondVersionApp'}>
                     <div className={'wrapper'}>
                         <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
                                  maxValue={this.state.maxCounter}
-                                 setUnitToCounter={this.setUnitToCounter} reset={this.reset}/>
+                                 setUnitToCounter={this.setUnitToCounter} reset={this.reset}
+                                 openSettings={this.openSettings} isFirstVersion={this.state.isFirstVersion}
+                                 isSettingsOpened={this.state.isSettingsOpened}
+                        />
                         <Settings setValues={this.setValues}
                                   updateValuesFromInputs={this.updateValuesFromInputs}
                                   isNumberValuesNotValid={this.state.isNumberValuesNotValid}
                                   isSettingButtonNotReady={this.state.isSettingButtonNotReady}
                                   onFocusHandler={this.onFocusHandler}
                                   onBlurHandler={this.onBlurHandler}
-                                  maxInput={this.state.maxInput}
-                                  minInput={this.state.minInput}
+                                  maxInput={this.state.maxInput} minInput={this.state.minInput}
+                                  isSettingsOpened={this.state.isSettingsOpened}
                         />
                     </div>
-                </div>}
-                {!this.state.isFirstVersion  &&
+                </div>
+                {/*{!this.state.isFirstVersion  &&
                 <div className="App secondVersionApp">
                     <div className={'wrapper'}>
                         <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
                                  maxValue={this.state.maxCounter}
                                  setUnitToCounter={this.setUnitToCounter} reset={this.reset}
-                                 openSettings={this.openSettings} isFirstVersion={this.state.isFirstVersion}/>
+                                 openSettings={this.openSettings} isFirstVersion={this.state.isFirstVersion}
+                                 />
                         <Settings setValues={this.setValues}
                                   updateValuesFromInputs={this.updateValuesFromInputs}
                                   isNumberValuesNotValid={this.state.isNumberValuesNotValid}
@@ -209,7 +214,7 @@ class App extends React.Component {
                                   minInput={this.state.minInput}
                         />
                     </div>
-                </div>}
+                </div>}*/}
             </>
         );
     };

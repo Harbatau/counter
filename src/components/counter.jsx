@@ -5,7 +5,7 @@ import ControlButton from "./buttons";
 
 const Counter = (props) => {
     return (
-        <div className={'counter'}>
+        <div className={!props.isFirstVersion && props.isSettingsOpened ? 'counter heightZero' :'counter' }>
             <CounterDisplay counterNumber={props.counterNumber} maxValue={props.maxValue} minValue={props.minValue}
                             alertMonitor={props.counterNumber !== props.maxValue}/>
             <div className={'counterButtons'}>
@@ -13,7 +13,7 @@ const Counter = (props) => {
                                disableMonitor={props.counterNumber === props.maxValue}/>
                 <ControlButton buttonProperty={'reset'} onClickHandler={props.reset}
                                disableMonitor={props.counterNumber === props.minValue}/>
-                {props.isFirstVersion === false &&
+                {!props.isFirstVersion &&
                 <ControlButton buttonProperty={'Settings'} onClickHandler={props.openSettings}/>}
             </div>
         </div>
