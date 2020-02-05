@@ -13,6 +13,8 @@ const Counter = (props) => {
                                disableMonitor={props.counterNumber === props.maxValue}/>
                 <ControlButton buttonProperty={'reset'} onClickHandler={props.reset}
                                disableMonitor={props.counterNumber === props.minValue}/>
+                {props.isFirstVersion === false &&
+                <ControlButton buttonProperty={'Settings'} onClickHandler={props.openSettings}/>}
             </div>
         </div>
     )

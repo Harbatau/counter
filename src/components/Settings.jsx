@@ -31,7 +31,7 @@ const Settings = (props) => {
                                props.isNumberValuesNotValid)}
             />
             <div className={props.isNumberValuesNotValid ? 'alertMessage' : 'alertMessage opacityZero'}>
-                minValue cannot be greater than maxValue
+                minValue can't be greater than maxValue
             </div>
         </div>
     )

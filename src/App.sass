@@ -53,7 +53,7 @@ to
   text-align: center
   width: 100%
   height: 100vh
-  animation: App-Background 7s ease infinite
+  animation: App-Background 12s ease infinite
   box-sizing: border-box
   text-transform: uppercase
   position: relative
@@ -88,7 +88,7 @@ button
   text-transform: uppercase
   background-size: 600% 600%
   background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%)
-  animation: App-Background 7s ease infinite
+  animation: App-Background 12s ease infinite
   transition: background-color 0.7s ease
   &:disabled
     background-image: none
@@ -120,7 +120,7 @@ button
   font-weight: bold
   font-family: 'Montserrat', sans-serif
   -webkit-background-clip: text
-  animation: App-Background 7s ease-in-out infinite
+  animation: App-Background 12s ease-in-out infinite
 
 .counterButtons
   display: flex
@@ -225,3 +225,56 @@ button
   margin-right: 10px
   color: #c6e2ff
   animation: neon .08s ease-in-out infinite alternate
+
+.verSwitcher
+  z-index: 2
+  cursor: pointer
+  display: block
+  border: 2px solid rgba(255, 255, 255, 0.6)
+  border-radius: 10px
+  position: absolute
+  top: 20px
+  left: 50%
+  transform: translateX(-50%)
+  padding: 5px
+  font-family: 'Montserrat', sans-serif
+  > span
+    &:first-child
+      margin-right: 15px
+
+.secondVersion
+  border-color: blueviolet
+  > .currentVersionIsOne
+    color: coral
+  > .currentVersionIsTwo
+    color: black
+  > .switcher
+    left: 50%
+    background-color: coral
+
+.currentVersionIsOne
+  color: black
+  width: 100px
+
+.currentVersionIsTwo
+  color: white
+  width: 100px
+
+.switcher
+  z-index: -1
+  background-color: rgba(255, 255, 255, 0.4)
+  position: absolute
+  top: 0
+  left: 0
+  padding:
+  width: 50%
+  height: 100%
+  border-radius: 10px
+  transition: left 0.3s ease
+
+
+/*SECOND VERSION*/
+
+.secondVersionApp
+  background-image: none
+  background-color: #301047

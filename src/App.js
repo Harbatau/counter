@@ -22,7 +22,9 @@ class App extends React.Component {
             lastRealValue: '99',
             isInputFocused: false,
             isValueEqualToCurrentSetting: true
-        }
+        },
+        isFirstVersion: true,
+        isSettingsOpened: false
     };
 
     setUnitToCounter = () => {
@@ -122,7 +124,8 @@ class App extends React.Component {
                             isValueEqualToCurrentSetting: false
                         }
                     })
-                };
+                }
+                ;
                 break;
             case 'minInput':
                 if (value === '') {
@@ -150,31 +153,66 @@ class App extends React.Component {
                             isValueEqualToCurrentSetting: false
                         }
                     })
-                };
+                }
+                ;
                 break;
         }
     };
 
+    switchVersion = () => {
+        this.setState({isFirstVersion: !this.state.isFirstVersion});
+    };
+
+    openSettings = () => {
+        this.setState({isSettingsOpened: false})
+    };
+
     render() {
         return (
-            <div className="App">
-                <div className={'wrapper'}>
-                    <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
-                             maxValue={this.state.maxCounter}
-                             setUnitToCounter={this.setUnitToCounter} reset={this.reset}/>
-                    <Settings setValues={this.setValues}
-                              updateValuesFromInputs={this.updateValuesFromInputs}
-                              isNumberValuesNotValid={this.state.isNumberValuesNotValid}
-                              isSettingButtonNotReady={this.state.isSettingButtonNotReady}
-                              onFocusHandler={this.onFocusHandler}
-                              onBlurHandler={this.onBlurHandler}
-                              maxInput={this.state.maxInput}
-                              minInput={this.state.minInput}
-                    />
+            <>
+                <div className={this.state.isFirstVersion ? 'verSwitcher': 'verSwitcher secondVersion'} onClick={this.switchVersion}>
+                    <span className={'currentVersionIsOne'}>1st version</span>
+                    <span className={'currentVersionIsTwo'}>2nd version</span>
+                    <div className={'switcher'}/>
                 </div>
-            </div>
+                {this.state.isFirstVersion &&
+                <div className="App">
+                    <div className={'wrapper'}>
+                        <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
+                                 maxValue={this.state.maxCounter}
+                                 setUnitToCounter={this.setUnitToCounter} reset={this.reset}/>
+                        <Settings setValues={this.setValues}
+                                  updateValuesFromInputs={this.updateValuesFromInputs}
+                                  isNumberValuesNotValid={this.state.isNumberValuesNotValid}
+                                  isSettingButtonNotReady={this.state.isSettingButtonNotReady}
+                                  onFocusHandler={this.onFocusHandler}
+                                  onBlurHandler={this.onBlurHandler}
+                                  maxInput={this.state.maxInput}
+                                  minInput={this.state.minInput}
+                        />
+                    </div>
+                </div>}
+                {!this.state.isFirstVersion  &&
+                <div className="App secondVersionApp">
+                    <div className={'wrapper'}>
+                        <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
+                                 maxValue={this.state.maxCounter}
+                                 setUnitToCounter={this.setUnitToCounter} reset={this.reset}
+                                 openSettings={this.openSettings} isFirstVersion={this.state.isFirstVersion}/>
+                        <Settings setValues={this.setValues}
+                                  updateValuesFromInputs={this.updateValuesFromInputs}
+                                  isNumberValuesNotValid={this.state.isNumberValuesNotValid}
+                                  isSettingButtonNotReady={this.state.isSettingButtonNotReady}
+                                  onFocusHandler={this.onFocusHandler}
+                                  onBlurHandler={this.onBlurHandler}
+                                  maxInput={this.state.maxInput}
+                                  minInput={this.state.minInput}
+                        />
+                    </div>
+                </div>}
+            </>
         );
-    }
+    };
 }
 
 export default App;
