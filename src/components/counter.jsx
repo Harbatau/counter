@@ -14,7 +14,7 @@ const Counter = (props) => {
                 <ControlButton buttonProperty={'reset'} onClickHandler={props.reset}
                                disableMonitor={props.counterNumber === props.minValue}/>
                 {!props.isFirstVersion &&
-                <ControlButton buttonProperty={'Settings'} onClickHandler={props.openSettings}/>}
+                <ControlButton buttonProperty={'Settings'} onClickHandler={props.openAndCloseSettings}/>}
             </div>
         </div>
     )

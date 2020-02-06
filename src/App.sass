@@ -1,51 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap')
-
-@keyframes App-Background
-  0%
-    background-position: 14% 0%
-  50%
-    background-position: 87% 100%
-  100%
-    background-position: 14% 0%
-
-@keyframes blur
-  from
-    text-shadow: (0px 0px 10px #fff,
-    0px 0px 10px #fff,
-    0px 0px 25px #fff,
-    0px 0px 25px #fff,
-    0px 0px 25px #fff,
-    0px 0px 25px #fff,
-    0px 0px 25px #fff,
-    0px 0px 25px #fff,
-    0px 0px 50px #fff,
-    0px 0px 50px #fff,
-    0px 0px 50px #fff,
-    0px 0px 150px #fff,
-    0px 10px 100px #fff,
-    0px 10px 100px #fff,
-    0px 10px 100px #fff,
-    0px 10px 100px #fff,
-    0px -10px 100px #fff,
-    0px -10px 100px #fff)
-  to
-    text-shadow: #fff 0px 0px 0px
-
-@keyframes neon
-  from
-    text-shadow: (0 0 6px rgba(202,228,225,0.92),
-    0 0 30px rgba(202,228,225,0.34),
-    0 0 12px rgba(30,132,242,0.52),
-    0 0 21px rgba(30,132,242,0.92),
-    0 0 34px rgba(30,132,242,0.78),
-    0 0 54px rgba(30,132,242,0.92))
-to
-    text-shadow: (0 0 6px rgba(202,228,225,0.98),
-    0 0 30px rgba(202,228,225,0.42),
-    0 0 12px rgba(30,132,242,0.58),
-    0 0 22px rgba(30,132,242,0.84),
-    0 0 38px rgba(30,132,242,0.88),
-    0 0 60px rgba(30,132,242,1))
+@import "Animations"
 
 .App
   background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%)
@@ -95,6 +49,7 @@ button
     background-color: rgba(255, 255, 255, 0.6)
     color: grey
     font-weight: normal
+    cursor: inherit
   &:focus
     outline: 0
 
@@ -153,6 +108,8 @@ button
   justify-content: space-around
 
 .settingsInputs
+  display: flex
+  justify-content: space-around
   width: 500px
   margin: 0 auto 10px auto
   border: 2px solid rgba(255, 255, 255, 0.6)
@@ -185,10 +142,7 @@ button
     font-size: 15px
     transform: scale3d(1, 1, 1)
     + .inputName
-      &:before
-        transform: scale3d(1, 1.5, 1)
-      > .labelWrapper
-        transform: translate3d(0, -2.15em, 0) scale3d(0.8, 0.8, 1) translateZ(1px)
+      transform: translate3d(0, -2.15em, 0) scale3d(0.8, 0.8, 1) translateZ(1px)
 
 .inputName
   color: white
@@ -198,25 +152,16 @@ button
   height: 100%
   width: 100%
   cursor: text
-  &:before
-    content: ''
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    background: transparent
-    transform-origin: 50% 100%
-    transition: transform 0.3s
-  > .labelWrapper
-    display: flex
-    align-items: center
-    justify-content: space-between
-    text-align: left
-    position: relative
-    width: 100%
-    transform-origin: 0% 50%
-    transition: transform 0.3s
+  transition: transform 0.3s
+  transform-origin: 0% 50%
+
+.labelWrapper
+  display: flex
+  align-items: center
+  justify-content: space-around
+  text-align: left
+  position: relative
+  width: 100%
 
 .lastRealValue
   font-size: 25px
@@ -276,7 +221,7 @@ button
 /*SECOND VERSION*/
 
 .secondVersionApp
-  background-image: linear-gradient(to bottom, #361352, #3a0836, #320720, #250610, #150202)
+  background-image: linear-gradient(to bottom, rgb(54,19,82), rgb(58,8,54), rgb(50,7,32), rgb(37,6,16), rgb(21,2,2))
   background-size: 100%
   animation: none
   .counter
@@ -285,6 +230,8 @@ button
     transition: height 0.3s
     .counterDisplay
       height: 380px
+      border: none
+      background-color: transparent
       .number
         background-image: none
         font-size: 200px
@@ -299,5 +246,46 @@ button
   .settings.heightZero
     height: 0
   button
+    border: none
+    color: #fff
+    background-image: none
+    background-size: 100%
+    background-color: inherit
+    animation: neon 1.5s ease-in-out infinite alternate
+    font-size: 20px
+    font-weight: bold
+    transition: all 0.5s
+    &:hover
+      color: #FF1177
+      animation: none
+    &:disabled
+      color: #c6e2ff
+      animation: none
+  .settingsInputs
+    flex-direction: column
+    height: calc(100% - 100px)
+    border: none
+  .inputContainer
+    height: 50%
+    width: 70%
+    margin: 0 auto
+  .optionsInput
+    height: 50%
+    top: 50%
+    transform: translateY(-50%)
+    background-color: transparent
+    &:focus
+      border: 2px solid white
+      border-radius: 10px
+      animation: neon-turn-on 0.2s ease-in-out, neon-turned-on 1.5s ease-in-out 0.2s infinite alternate
+  .inputName
+    position: absolute
+    height: 50%
+    top: 50%
+    transform: translateY(-50%)
+
+
+
+
 
 

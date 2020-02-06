@@ -1,0 +1,109 @@
+@mixin neonBoxShadows
+  box-shadow: (0 0 10px #fff,
+  0 0 20px #fff,
+  0 0 30px #fff,
+  0 0 40px #FF1177,
+  0 0 70px #FF1177,
+  0 0 80px #FF1177,
+  0 0 100px #FF1177,
+  0 0 150px #FF1177,
+  inset 0 0 10px #fff,
+  inset 0 0 20px #FF1177,
+  inset 0 0 40px #FF1177,
+  inset 0 0 75px #FF1177)
+
+@keyframes App-Background
+  0%
+    background-position: 14% 0%
+  50%
+    background-position: 87% 100%
+  100%
+    background-position: 14% 0%
+
+@keyframes blur
+  from
+    text-shadow: (0px 0px 10px #fff,
+    0px 0px 10px #fff,
+    0px 0px 25px #fff,
+    0px 0px 25px #fff,
+    0px 0px 25px #fff,
+    0px 0px 25px #fff,
+    0px 0px 25px #fff,
+    0px 0px 25px #fff,
+    0px 0px 50px #fff,
+    0px 0px 50px #fff,
+    0px 0px 50px #fff,
+    0px 0px 150px #fff,
+    0px 10px 100px #fff,
+    0px 10px 100px #fff,
+    0px 10px 100px #fff,
+    0px 10px 100px #fff,
+    0px -10px 100px #fff,
+    0px -10px 100px #fff)
+  to
+    text-shadow: #fff 0px 0px 0px
+
+@keyframes neon
+  from
+    text-shadow: (0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 30px #fff,
+    0 0 40px #FF1177,
+    0 0 70px #FF1177,
+    0 0 80px #FF1177,
+    0 0 100px #FF1177,
+    0 0 150px #FF1177)
+  to
+    text-shadow: (0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 15px #fff,
+    0 0 20px #FF1177,
+    0 0 35px #FF1177,
+    0 0 40px #FF1177,
+    0 0 50px #FF1177,
+    0 0 75px #FF1177)
+
+@keyframes neon-turn-on
+  0%
+    @include neonBoxShadows
+  25%
+    box-shadow: none
+    border-color: #c6e2ff
+  50%
+    @include neonBoxShadows
+    border-color: #FF1177
+  75%
+    box-shadow: none
+    border-color: #c6e2ff
+  100%
+    @include neonBoxShadows
+    border-color: #FF1177
+
+@keyframes neon-turned-on
+  from
+    box-shadow: (0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 30px #fff,
+    0 0 40px #FF1177,
+    0 0 70px #FF1177,
+    0 0 80px #FF1177,
+    0 0 100px #FF1177,
+    0 0 150px #FF1177,
+    inset 0 0 10px #fff,
+    inset 0 0 20px #FF1177,
+    inset 0 0 40px #FF1177,
+    inset 0 0 75px #FF1177)
+  to
+    box-shadow: (0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 15px #fff,
+    0 0 20px #FF1177,
+    0 0 35px #FF1177,
+    0 0 40px #FF1177,
+    0 0 50px #FF1177,
+    0 0 75px #FF1177,
+    inset 0 0 5px #fff,
+    inset 0 0 10px #FF1177,
+    inset 0 0 20px #FF1177,
+    inset 0 0 40px #FF1177)
+

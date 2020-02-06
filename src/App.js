@@ -96,22 +96,22 @@ class App extends React.Component {
         }
     };
 
-    onBlurHandler = (e, input) => {
-        let value = e.currentTarget.value;
+    onBlurHandler = (input) => {
         switch (input) {
             case 'maxInput':
-                if (value === '') {
+                let maxValue = this.state.maxInput.inputValue;
+                if (maxValue === '') {
                     this.setState({
                         maxInput: {
                             ...this.state.maxInput,
                             isInputFocused: false
                         }
                     });
-                } else if (+value === this.state.minCounter) {
+                } else if (+maxValue === this.state.maxCounter) {
                     this.setState({
                         maxInput: {
                             ...this.state.maxInput,
-                            lastRealValue: value,
+                            lastRealValue: maxValue,
                             isInputFocused: false,
                             isValueEqualToCurrentSetting: true
                         }
@@ -120,27 +120,27 @@ class App extends React.Component {
                     this.setState({
                         maxInput: {
                             ...this.state.maxInput,
-                            lastRealValue: value,
+                            lastRealValue: maxValue,
                             isInputFocused: false,
                             isValueEqualToCurrentSetting: false
                         }
                     })
                 }
-                ;
                 break;
             case 'minInput':
-                if (value === '') {
+                let minValue = this.state.minInput.inputValue;
+                if (minValue === '') {
                     this.setState({
                         minInput: {
                             ...this.state.minInput,
                             isInputFocused: false
                         }
                     });
-                } else if (+value === this.state.maxCounter) {
+                } else if (+minValue === this.state.minCounter) {
                     this.setState({
                         minInput: {
                             ...this.state.minInput,
-                            lastRealValue: value,
+                            lastRealValue: minValue,
                             isInputFocused: false,
                             isValueEqualToCurrentSetting: true
                         }
@@ -149,13 +149,12 @@ class App extends React.Component {
                     this.setState({
                         minInput: {
                             ...this.state.minInput,
-                            lastRealValue: value,
+                            lastRealValue: minValue,
                             isInputFocused: false,
                             isValueEqualToCurrentSetting: false
                         }
                     })
                 }
-                ;
                 break;
         }
     };
@@ -164,11 +163,11 @@ class App extends React.Component {
         this.setState({isFirstVersion: !this.state.isFirstVersion});
     };
 
-    openSettings = () => {
-        this.setState({isSettingsOpened: true})
+    openAndCloseSettings = () => {
+        this.setState({isSettingsOpened: !this.state.isSettingsOpened})
     };
 
-        render() {
+    render() {
             window.stote = this.state;
         return (
             <>
@@ -183,7 +182,7 @@ class App extends React.Component {
                         <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
                                  maxValue={this.state.maxCounter}
                                  setUnitToCounter={this.setUnitToCounter} reset={this.reset}
-                                 openSettings={this.openSettings} isFirstVersion={this.state.isFirstVersion}
+                                 openAndCloseSettings={this.openAndCloseSettings} isFirstVersion={this.state.isFirstVersion}
                                  isSettingsOpened={this.state.isSettingsOpened}
                         />
                         <Settings setValues={this.setValues}
@@ -194,6 +193,8 @@ class App extends React.Component {
                                   onBlurHandler={this.onBlurHandler}
                                   maxInput={this.state.maxInput} minInput={this.state.minInput}
                                   isSettingsOpened={this.state.isSettingsOpened}
+                                  openAndCloseSettings={this.openAndCloseSettings}
+                                  isFirstVersion={this.state.isFirstVersion}
                         />
                     </div>
                 </div>
