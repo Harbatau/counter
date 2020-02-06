@@ -6,7 +6,8 @@ import SettingsInput from "./SettingsInput";
 const Settings = (props) => {
 
     return (
-        <div className={!props.isFirstVersion && props.isSettingsOpened ? 'settings' : 'settings heightZero'}>
+        <div className={props.isFirstVersion || (props.isSettingsOpened && !props.isFirstVersion) ?
+            'settings' : 'settings displayNone'}>
             <div className={'settingsInputs'}>
                 <SettingsInput blur={() => props.onBlurHandler('maxInput')}
                                data={props.maxInput} inputName={'max value'}

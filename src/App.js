@@ -178,7 +178,8 @@ class App extends React.Component {
                     <div className={'switcher'}/>
                 </div>
                 <div className={this.state.isFirstVersion ? 'App' : 'App secondVersionApp'}>
-                    <div className={'wrapper'}>
+                    <div className={this.state.isFirstVersion || !this.state.isSettingsOpened ?
+                        'wrapper' : 'wrapper settingsActive'}>
                         <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
                                  maxValue={this.state.maxCounter}
                                  setUnitToCounter={this.setUnitToCounter} reset={this.reset}

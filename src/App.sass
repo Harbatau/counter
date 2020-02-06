@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap')
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes&display=swap')
 @import "Animations"
 
 .App
@@ -24,6 +25,7 @@ input
   border-width: 0
   border-style: none
   border-image: none
+  text-align: center
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button
@@ -97,6 +99,9 @@ button
   animation: blur 0.75s ease-out infinite
   text-shadow: 0px 0px 7px #fff, 0px 0px 10px #fff
 
+.displayNone
+  display: none
+
 .opacityZero
   opacity: 0
 
@@ -134,7 +139,6 @@ button
   opacity: 0
   outline: none
   background-color: rgba(255, 255, 255, 0.4)
-  padding-left: 5px
   &:focus
     background-color: rgba(255, 255, 255, 0.4)
     opacity: 1
@@ -224,10 +228,14 @@ button
   background-image: linear-gradient(to bottom, rgb(54,19,82), rgb(58,8,54), rgb(50,7,32), rgb(37,6,16), rgb(21,2,2))
   background-size: 100%
   animation: none
+  .wrapper
+  .wrapper.settingsActive
+    border: 4px solid white
+    border-radius: 10px
+    animation: neon-wrapper-turn-on 1s ease-in-out
+    @include neonBoxShadowsMax
   .counter
     height: 500px
-    overflow: hidden
-    transition: height 0.3s
     .counterDisplay
       height: 380px
       border: none
@@ -236,15 +244,10 @@ button
         background-image: none
         font-size: 200px
         color: white
+        background-size: 100%
         -webkit-text-fill-color: inherit
-  .counter.heightZero
-    height: 0
   .settings
     height: 500px
-    overflow: hidden
-    transition: height 0.3s
-  .settings.heightZero
-    height: 0
   button
     border: none
     color: #fff
@@ -284,6 +287,12 @@ button
     top: 50%
     transform: translateY(-50%)
 
+.theCounter
+  font-family: 'Great Vibes', cursive
+  font-size: 100px
+  color: white
+  animation: neon 1.5s ease-in-out infinite alternate
+  text-transform: none
 
 
 

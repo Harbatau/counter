@@ -1,4 +1,4 @@
-@mixin neonBoxShadows
+@mixin neonBoxShadowsMax
   box-shadow: (0 0 10px #fff,
   0 0 20px #fff,
   0 0 30px #fff,
@@ -11,6 +11,33 @@
   inset 0 0 20px #FF1177,
   inset 0 0 40px #FF1177,
   inset 0 0 75px #FF1177)
+
+@mixin neonBoxShadowsMin
+  box-shadow: (0 0 5px #fff,
+  0 0 10px #fff,
+  0 0 15px #fff,
+  0 0 20px #FF1177,
+  0 0 35px #FF1177,
+  0 0 40px #FF1177,
+  0 0 50px #FF1177,
+  0 0 75px #FF1177,
+  inset 0 0 5px #fff,
+  inset 0 0 10px #FF1177,
+  inset 0 0 20px #FF1177,
+  inset 0 0 40px #FF1177)
+
+@mixin neonBoxShadowsOnTurnOn
+  box-shadow: (0 0 5px #fff,
+  0 0 7px #fff,
+  0 0 10px #fff,
+  0 0 15px #FF1177,
+  0 0 20px #FF1177,
+  0 0 25px #FF1177,
+  0 0 30px #FF1177,
+  inset 0 0 5px #fff,
+  inset 0 0 10px #FF1177,
+  inset 0 0 20px #FF1177,
+  inset 0 0 40px #FF1177)
 
 @keyframes App-Background
   0%
@@ -65,45 +92,43 @@
 
 @keyframes neon-turn-on
   0%
-    @include neonBoxShadows
+    @include neonBoxShadowsMax
   25%
     box-shadow: none
     border-color: #c6e2ff
   50%
-    @include neonBoxShadows
+    @include neonBoxShadowsMax
     border-color: #FF1177
   75%
     box-shadow: none
     border-color: #c6e2ff
   100%
-    @include neonBoxShadows
+    @include neonBoxShadowsMax
     border-color: #FF1177
 
 @keyframes neon-turned-on
   from
-    box-shadow: (0 0 10px #fff,
-    0 0 20px #fff,
-    0 0 30px #fff,
-    0 0 40px #FF1177,
-    0 0 70px #FF1177,
-    0 0 80px #FF1177,
-    0 0 100px #FF1177,
-    0 0 150px #FF1177,
-    inset 0 0 10px #fff,
-    inset 0 0 20px #FF1177,
-    inset 0 0 40px #FF1177,
-    inset 0 0 75px #FF1177)
+    @include neonBoxShadowsMax
   to
-    box-shadow: (0 0 5px #fff,
-    0 0 10px #fff,
-    0 0 15px #fff,
-    0 0 20px #FF1177,
-    0 0 35px #FF1177,
-    0 0 40px #FF1177,
-    0 0 50px #FF1177,
-    0 0 75px #FF1177,
-    inset 0 0 5px #fff,
-    inset 0 0 10px #FF1177,
-    inset 0 0 20px #FF1177,
-    inset 0 0 40px #FF1177)
+    @include neonBoxShadowsMin
+
+@keyframes neon-wrapper-turn-on
+  1%
+    @include neonBoxShadowsOnTurnOn
+  5%
+    @include neonBoxShadowsOnTurnOn
+  6%
+    box-shadow: none
+  20%
+    @include neonBoxShadowsOnTurnOn
+  25%
+    @include neonBoxShadowsOnTurnOn
+  26%
+    border-color: #c6e2ff
+    box-shadow: none
+  35%
+    box-shadow: none
+  100%
+    border-color: white
+    @include neonBoxShadowsMax
 
