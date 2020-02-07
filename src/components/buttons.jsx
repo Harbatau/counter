@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.sass';
+import '../Assets/App.sass';
 
 const ControlButton = (props) => {
     return(

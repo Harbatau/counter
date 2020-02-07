@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.sass';
+import './Assets/App.sass';
 import Counter from "./components/counter";
 import Settings from "./components/Settings";
 
@@ -168,7 +168,7 @@ class App extends React.Component {
     };
 
     render() {
-            window.stote = this.state;
+            window.store = this.state;
         return (
             <>
                 <div className={this.state.isFirstVersion ? 'verSwitcher' : 'verSwitcher secondVersion'}
@@ -178,7 +178,7 @@ class App extends React.Component {
                     <div className={'switcher'}/>
                 </div>
                 <div className={this.state.isFirstVersion ? 'App' : 'App secondVersionApp'}>
-                    <div className={this.state.isFirstVersion || !this.state.isSettingsOpened ?
+                    <div className={!this.state.isSettingsOpened ?
                         'wrapper' : 'wrapper settingsActive'}>
                         <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
                                  maxValue={this.state.maxCounter}

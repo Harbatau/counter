@@ -1,12 +1,12 @@
 import React from 'react';
-import '../App.sass';
+import '../Assets/App.sass';
 import CounterDisplay from "./counterDisplay";
 import ControlButton from "./buttons";
 
 const Counter = (props) => {
     return (
         <>
-            {!props.isFirstVersion && <div className={'theCounter'}>The Counter</div>}
+            <div className={!props.isSettingsOpened ? 'theCounter' : 'theCounter disabled'}>The Counter</div>
             <div className={!props.isFirstVersion && props.isSettingsOpened ? 'counter displayNone' : 'counter'}>
                 <CounterDisplay counterNumber={props.counterNumber} maxValue={props.maxValue} minValue={props.minValue}
                                 alertMonitor={props.counterNumber !== props.maxValue}/>
