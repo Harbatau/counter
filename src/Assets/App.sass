@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap')
 @import url('https://fonts.googleapis.com/css?family=Great+Vibes&display=swap')
 @import "Animations"
+@font-face
+  font-family: "Anders"
+  src: url('./fonts/Anders.ttf')
+  font-style: normal
+  font-weight: normal
 
 .App
-  background-image: url("https://unblast.com/wp-content/uploads/2018/08/Gradient-Mesh-27.jpg")
+  background-image: url("./images/Gradient-Mesh-27.jpg")
   background-size: 600% 100%
   text-align: center
   width: 100%
@@ -12,6 +17,7 @@
   box-sizing: border-box
   text-transform: uppercase
   position: relative
+  user-select: none
 
 .wrapper
   margin: 0 auto
@@ -20,23 +26,24 @@
   left: 50%
   width: 500px
   transform: translateX(-50%) translateY(-50%)
-  backdrop-filter: blur(15px)
+  background: none
+  backdrop-filter: blur(5px)
   box-shadow: 0 0 10px white
   border-radius: 10px
   z-index: 5
   box-sizing: border-box
 
 .theCounter
-  font-family: 'Great Vibes', cursive
+  font-family: 'Anders'
+  font-weight: bold
   font-size: 100px
   width: 100%
   color: white
   text-transform: none
   position: absolute
-  top: -80px
+  top: calc(50% - 300px)
   left: 50%
-  transform: translateX(-50%)
-  z-index: 3
+  transform: translateX(-50%) translateY(-50%)
 
 input
   cursor: text
@@ -52,6 +59,7 @@ input[type="number"]::-webkit-inner-spin-button
 
 button
   cursor: pointer
+  outline: 0
   width: 150px
   height: 75px
   border: 2px solid rgba(255, 255, 255, 0.6)
@@ -60,24 +68,24 @@ button
   font-size: 20px
   font-family: 'Montserrat', sans-serif
   text-transform: uppercase
-  background-size: 600% 600%
-  background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%)
-  animation: App-Background 12s ease infinite
-  transition: background-color 0.7s ease
+  background-size: 600% 300%
+  background-image: url("./images/Gradient-Mesh-27.jpg")
+  transition: background-position 0.7s ease
   &:disabled
     background-image: none
-    background-color: rgba(255, 255, 255, 0.6)
+    background-color: rgba(255, 255, 255, 0.2)
     color: grey
     font-weight: normal
     cursor: inherit
-  &:focus
-    outline: 0
+  &:hover
+    background-position-x: 100%
+
 
 .counterDisplay
   margin: 0 auto
 
 .currSetVal
-  color: grey
+  color: white
   font-size: 30px
 
 .number
@@ -86,7 +94,7 @@ button
   color: transparent
   font-weight: normal
   font-family: 'Montserrat', sans-serif
-  -webkit-text-stroke: 1px white
+  -webkit-text-stroke: 3px white
 
 .counterButtons
   display: flex
@@ -94,18 +102,18 @@ button
   margin: 10px auto
 
 .alertNumber
-  animation: blur 0.75s ease-out infinite
+  color: #FF1177
+  -webkit-text-stroke: 3px #FF1177
 
 .alertMessage
   height: 40px
   display: block
   margin: 0 auto
-  color: #fff
+  color: #FF1177
   font-size: 20px
   font-weight: bold
   text-transform: uppercase
-  animation: blur 0.75s ease-out infinite
-  text-shadow: 0px 0px 7px #fff, 0px 0px 10px #fff
+  text-shadow: 0px 0px 7px #FF1177, 0px 0px 10px #FF1177
 
 .displayNone
   display: none
@@ -114,7 +122,7 @@ button
   opacity: 0
 
 .currentSettings
-  color: grey
+  color: white
 
 .flex
   display: flex
@@ -144,14 +152,15 @@ button
   opacity: 0
   outline: none
   background-color: rgba(255, 255, 255, 0.4)
+  caret-color: white
   &:focus
     background-color: rgba(255, 255, 255, 0.4)
     opacity: 1
-    color: grey
-    font-size: 15px
+    color: #FF1177
+    font-size: 30px
     transform: scale3d(1, 1, 1)
     + .inputName
-      transform: translate3d(0, -2.15em, 0) scale3d(0.8, 0.8, 1) translateZ(1px)
+      transform: translate3d( 13px, -41px, 0) scale3d(0.8, 0.8, 1) translateZ(1px)
 
 .inputName
   color: white
@@ -168,7 +177,7 @@ button
   display: flex
   align-items: center
   justify-content: space-around
-  text-align: left
+  text-align: center
   position: relative
   width: 100%
 
@@ -177,10 +186,10 @@ button
   font-weight: bold
   float: right
   margin-right: 10px
-  color: #c6e2ff
-  animation: neon .08s ease-in-out infinite alternate
+  color: #FF1177
 
 .verSwitcher
+  user-select: none
   z-index: 2
   cursor: pointer
   display: block
@@ -192,19 +201,22 @@ button
   transform: translateX(-50%)
   padding: 5px
   font-family: 'Montserrat', sans-serif
+  box-shadow: 0 0 10px white
   > span
     &:first-child
       margin-right: 15px
 
 .secondVersion
-  border-color: blueviolet
+  border-color: #FF1177
+  @include neonBoxShadowsOnTurnOn
   > .currentVersionIsOne
-    color: coral
+    color: white
   > .currentVersionIsTwo
-    color: black
+    color: #FF1177
+    @include text-shadow
   > .switcher
     left: 50%
-    background-color: coral
+    background-color: white
 
 .currentVersionIsOne
   color: black
@@ -251,6 +263,7 @@ button
     height: 380px
     border: none
     background-color: transparent
+    margin-bottom: 30px
 
   .number
     background-image: none
@@ -268,16 +281,16 @@ button
     background-image: none
     background-size: 100%
     background-color: inherit
-    animation: neon 1.5s ease-in-out infinite alternate
+    @include text-shadow
     font-size: 20px
     font-weight: bold
-    transition: all 0.5s
+    transition: color, text-shadow 0.5s
     &:hover
       color: #FF1177
-      animation: none
+      text-shadow: none
     &:disabled
       color: #c6e2ff
-      animation: none
+      text-shadow: none
 
   .settingsInputs
     flex-direction: column
@@ -297,8 +310,10 @@ button
     &:focus
       border: 2px solid white
       border-radius: 10px
-      animation: neon-turn-on 0.2s ease-in-out, neon-turned-on 1.5s ease-in-out 0.2s infinite alternate
-
+      animation: neon-turn-on 0.2s ease-in-out
+      @include neonBoxShadowsMax
+      + .inputName
+        transform: translate3d( 36px, -20px, 0) scale3d(0.8, 0.8, 1) translateZ(1px)
   .inputName
     position: absolute
     height: 50%
@@ -311,14 +326,13 @@ button
     width: 100%
     color: white
     text-transform: none
-    position: absolute
-    top: -80px
-    left: 50%
-    transform: translateX(-50%)
-    animation: neon 1.5s ease-in-out infinite alternate
+    @include text-shadow
     transition: opacity 0.2s
+    z-index: 10
   .theCounter.disabled
     opacity: 0
+
+
 
 
 

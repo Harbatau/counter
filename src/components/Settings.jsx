@@ -4,7 +4,6 @@ import ControlButton from "./buttons";
 import SettingsInput from "./SettingsInput";
 
 const Settings = (props) => {
-
     return (
         <div className={props.isFirstVersion || (props.isSettingsOpened && !props.isFirstVersion) ?
             'settings' : 'settings displayNone'}>
@@ -38,7 +37,7 @@ const Settings = (props) => {
                 <ControlButton onClickHandler={props.openAndCloseSettings} buttonProperty={'cancel'}/>}
             </div>
             <div className={props.isNumberValuesNotValid ? 'alertMessage' : 'alertMessage opacityZero'}>
-                minValue can't be greater than maxValue
+                 ! minValue can't be greater than maxValue !
             </div>
         </div>
     )
