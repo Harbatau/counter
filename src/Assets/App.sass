@@ -247,7 +247,9 @@ button
   animation: none
 
   .wrapper
-    box-shadow: none
+    border: 4px solid rgba(198, 226, 255, 0.4)
+    box-shadow: 0 0 6px rgba(198, 226, 255, 0.4)
+    transition: all 0.3s
 
   .wrapper.settingsActive
     border: 4px solid white
@@ -267,10 +269,15 @@ button
 
   .number
     background-image: none
-    font-size: 200px
-    color: white
     background-size: 100%
     -webkit-text-fill-color: inherit
+    height: 320px
+
+  .currSetVal
+    color: #c6e2ff
+
+  .currentSettings
+    color: #c6e2ff
 
   .settings
     height: 500px
@@ -307,6 +314,8 @@ button
     top: 50%
     transform: translateY(-50%)
     background-color: transparent
+    color: #c6e2ff
+    font-size: 30px
     &:focus
       border: 2px solid white
       border-radius: 10px
@@ -314,11 +323,19 @@ button
       @include neonBoxShadowsMax
       + .inputName
         transform: translate3d( 36px, -20px, 0) scale3d(0.8, 0.8, 1) translateZ(1px)
+
   .inputName
     position: absolute
     height: 50%
     top: 50%
     transform: translateY(-50%)
+    color: #c6e2ff
+
+  .lastRealValue
+    color: white
+    font-size: 40px
+    @include text-shadow
+    font-family: 'Great Vibes', cursive
 
   .theCounter
     font-family: 'Great Vibes', cursive
@@ -329,8 +346,79 @@ button
     @include text-shadow
     transition: opacity 0.2s
     z-index: 10
+
   .theCounter.disabled
     opacity: 0
+
+  .alertMessage
+    color: white
+
+/*SVG
+
+svg
+  display: block
+  font-family: 'Montserrat', sans-serif
+  font-weight: bold
+  font-size: 500px
+  width: 100%
+  height: 100%
+  margin: 0 auto
+
+.text-copy
+  fill: none
+  stroke: white
+  stroke-dasharray: 6%, 29%
+  stroke-width: 5px
+  stroke-dashoffset: 0%
+  animation: stroke-offset 5.5s infinite linear
+
+.text-copy:nth-child(1)
+  stroke: #4D163D
+  animation-delay: -1s
+
+.text-copy:nth-child(2)
+  stroke: #840037
+  animation-delay: -2s
+
+.text-copy:nth-child(3)
+  stroke: #BD0034
+  animation-delay: -3s
+
+.text-copy:nth-child(4)
+  stroke: #BD0034
+  animation-delay: -4s
+
+.text-copy:nth-child(5)
+  stroke: #FF1177
+  animation-delay: -5s
+
+.text-copy-alert
+  fill: none
+  stroke: #c6e2ff
+  stroke-dasharray: 6%, 29%
+  stroke-width: 7px
+  stroke-dashoffset: 0%
+  animation: stroke-offset 5.5s infinite linear
+
+.text-copy-alert:nth-child(1)
+  animation-delay: -1s
+
+.text-copy-alert:nth-child(2)
+  animation-delay: -2s
+
+.text-copy-alert:nth-child(3)
+  animation-delay: -3s
+
+.text-copy-alert:nth-child(4)
+  animation-delay: -4s
+
+.text-copy-alert:nth-child(5)
+  animation-delay: -5s
+
+@keyframes stroke-offset
+  100%
+    stroke-dashoffset: -35%
+
 
 
 
