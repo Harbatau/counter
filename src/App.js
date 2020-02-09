@@ -57,7 +57,7 @@ class App extends React.Component {
                     (value === '' && (+this.state.maxInput.lastRealValue === this.state.maxCounter))) {
                     this.setState({isSettingButtonNotReady: true})
                 } else this.setState({isSettingButtonNotReady: false});
-                if (+value < +this.state.minInput.lastRealValue) {
+                if (+value <= +this.state.minInput.lastRealValue || +value < 0) {
                     this.setState({isNumberValuesNotValid: true})
                 } else this.setState({isNumberValuesNotValid: false});
                 if (+value === this.state.maxCounter ||
@@ -84,7 +84,7 @@ class App extends React.Component {
                     (value === '' && (+this.state.minInput.lastRealValue === this.state.minCounter))) {
                     this.setState({isSettingButtonNotReady: true})
                 } else this.setState({isSettingButtonNotReady: false});
-                if (+this.state.maxInput.lastRealValue < +value) {
+                if (+this.state.maxInput.lastRealValue <= +value || +value < 0) {
                     this.setState({isNumberValuesNotValid: true})
                 } else this.setState({isNumberValuesNotValid: false});
                 if (+value === this.state.minCounter ||
@@ -192,29 +192,31 @@ class App extends React.Component {
                     <div className={'switcher'}/>
                 </div>
                 <div className={this.state.isFirstVersion ? 'App' : 'App secondVersionApp'}>
-                    <div className={'theCounter'}>
-                        {!this.state.isSettingsOpened || this.state.isFirstVersion ? 'The Counter' : 'Settings'}
-                    </div>
-                    <div className={!this.state.isSettingsOpened ?
-                        'wrapper' : 'wrapper settingsActive'}>
-                        <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
-                                 maxValue={this.state.maxCounter}
-                                 setUnitToCounter={this.setUnitToCounter} reset={this.reset}
-                                 openAndCloseSettings={this.openAndCloseSettings}
-                                 isFirstVersion={this.state.isFirstVersion}
-                                 isSettingsOpened={this.state.isSettingsOpened}
-                        />
-                        <Settings setValues={this.setValues}
-                                  updateValuesFromInputs={this.updateValuesFromInputs}
-                                  isNumberValuesNotValid={this.state.isNumberValuesNotValid}
-                                  isSettingButtonNotReady={this.state.isSettingButtonNotReady}
-                                  onFocusHandler={this.onFocusHandler}
-                                  onBlurHandler={this.onBlurHandler}
-                                  maxInput={this.state.maxInput} minInput={this.state.minInput}
-                                  isSettingsOpened={this.state.isSettingsOpened}
-                                  openAndCloseSettings={this.openAndCloseSettings}
-                                  isFirstVersion={this.state.isFirstVersion}
-                        />
+                    <div className={'absoluteWrapper'}>
+                        <div className={'theCounter'}>
+                            {!this.state.isSettingsOpened || this.state.isFirstVersion ? 'The Counter' : 'Settings'}
+                        </div>
+                        <div className={!this.state.isSettingsOpened ?
+                            'wrapper' : 'wrapper settingsActive'}>
+                            <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
+                                     maxValue={this.state.maxCounter}
+                                     setUnitToCounter={this.setUnitToCounter} reset={this.reset}
+                                     openAndCloseSettings={this.openAndCloseSettings}
+                                     isFirstVersion={this.state.isFirstVersion}
+                                     isSettingsOpened={this.state.isSettingsOpened}
+                            />
+                            <Settings setValues={this.setValues}
+                                      updateValuesFromInputs={this.updateValuesFromInputs}
+                                      isNumberValuesNotValid={this.state.isNumberValuesNotValid}
+                                      isSettingButtonNotReady={this.state.isSettingButtonNotReady}
+                                      onFocusHandler={this.onFocusHandler}
+                                      onBlurHandler={this.onBlurHandler}
+                                      maxInput={this.state.maxInput} minInput={this.state.minInput}
+                                      isSettingsOpened={this.state.isSettingsOpened}
+                                      openAndCloseSettings={this.openAndCloseSettings}
+                                      isFirstVersion={this.state.isFirstVersion}
+                            />
+                        </div>
                     </div>
                 </div>
             </>

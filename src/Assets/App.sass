@@ -19,13 +19,15 @@
   position: relative
   user-select: none
 
-.wrapper
-  margin: 0 auto
+.absoluteWrapper
   position: absolute
   top: 50%
   left: 50%
-  width: 500px
   transform: translateX(-50%) translateY(-50%)
+
+.wrapper
+  margin: 0 auto
+  width: 500px
   background: none
   backdrop-filter: blur(5px)
   box-shadow: 0 0 10px white
@@ -34,16 +36,15 @@
   box-sizing: border-box
 
 .theCounter
+  width: 800px
   font-family: 'Anders'
   font-weight: bold
   font-size: 100px
-  width: 100%
   color: white
   text-transform: none
-  position: absolute
-  top: calc(50% - 300px)
-  left: 50%
-  transform: translateX(-50%) translateY(-50%)
+  position: relative
+  bottom: -50px
+
 
 input
   cursor: text
