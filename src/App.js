@@ -49,6 +49,7 @@ class App extends React.Component {
 
     updateValuesFromInputs = (e, input) => {
         let value = e.currentTarget.value;
+        if (+value > 999) return;
         switch (input) {
             case 'maxInput':
                 this.setState({maxInput: {...this.state.maxInput, inputValue: value}});
