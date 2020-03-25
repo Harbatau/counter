@@ -1,5 +1,3 @@
-import {default} from "react-redux/lib/utils/Subscription";
-
 const INCREMENT = 'reducer/INCREMENT';
 const RESET = 'reducer/RESET';
 const SWITCH_VERSION = 'reducer/SWITCH_VERSION';
@@ -68,9 +66,9 @@ const reducer = (state = initialState, action) => {
                 isSettingsOpened: !state.isFirstVersion ? false : state.isSettingsOpened
             };
         case UPDATE_VALUES_FROM_MIN:
-            let minValue  = action.event.currentTarget.value;
+            let minValue = action.event.currentTarget.value;
             if (+minValue > 999) return;
-            let newMinState = {...state, minInput: {...state.minInput, inputValue: minValue }};
+            let newMinState = {...state, minInput: {...state.minInput, inputValue: minValue}};
             if ((state.minCounter === +minValue &&
                 state.maxCounter === +state.maxInput.lastRealValue) ||
                 (minValue === '' && (+state.minInput.lastRealValue === state.minCounter))) {
@@ -97,50 +95,108 @@ const reducer = (state = initialState, action) => {
             };
             return newMinState;
         case UPDATE_VALUES_FROM_MAX:
-            let value  = action.event.currentTarget.value;
-            if (+value > 999) return;
-            let newMaxState = {...state, maxInput: {...state.maxInput, inputValue: value}};
-            if ((this.state.maxCounter === +value &&
-                this.state.minCounter === +this.state.minInput.lastRealValue) ||
-                (value === '' && (+this.state.maxInput.lastRealValue === this.state.maxCounter))) {
-                this.setState({isSettingButtonNotReady: true})
-            } else this.setState({isSettingButtonNotReady: false});
-            if (+value <= +this.state.minInput.lastRealValue || +value < 0) {
-                this.setState({isNumberValuesNotValid: true})
-            } else this.setState({isNumberValuesNotValid: false});
-            if (+value === this.state.maxCounter ||
-                (value === '' && (+this.state.maxInput.lastRealValue === this.state.maxCounter))) {
-                this.setState({
+            let maxValue = action.event.currentTarget.value;
+            if (+maxValue > 999) return;
+            let newMaxState = {...state, maxInput: {...state.maxInput, inputValue: maxValue}};
+            if ((state.maxCounter === +maxValue &&
+                state.minCounter === +state.minInput.lastRealValue) ||
+                (maxValue === '' && (+state.maxInput.lastRealValue === state.maxCounter))) {
+                newMaxState = {...newMaxState, isSettingButtonNotReady: true}
+            } else newMaxState = {...newMaxState, isSettingButtonNotReady: false};
+            if (+maxValue <= +state.minInput.lastRealValue || +maxValue < 0) {
+                newMaxState = {...newMaxState, isNumberValuesNotValid: true}
+            } else newMaxState = {...newMaxState, isNumberValuesNotValid: true};
+            if (+maxValue === state.maxCounter ||
+                (maxValue === '' && (+state.maxInput.lastRealValue === state.maxCounter))) {
+                newMaxState = {
+                    ...newMaxState,
                     maxInput: {
-                        ...this.state.maxInput,
-                        inputValue: value,
+                        ...newMaxState.maxInput,
                         isValueEqualToCurrentSetting: true
                     }
-                });
-            } else this.setState({
+                };
+            } else newMaxState = {
+                ...newMaxState,
                 maxInput: {
-                    ...this.state.maxInput,
-                    inputValue: value,
+                    ...newMaxState.maxInput,
                     isValueEqualToCurrentSetting: false
                 }
-            });
-
+            };
+            return newMaxState;
+        case ON_FOCUS_MIN:
+            return {
+                ...state,
+                minInput: {
+                    ...state.minInput,
+                    inputValue: '',
+                    isInputFocused: true
+                }
+            };
+        case ON_FOCUS_MAX:
+            return {
+                ...state,
+                maxInput: {
+                    ...state.maxInput,
+                    inputValue: '',
+                    isInputFocused: true
+                }
+            };
+        case ON_BLUR_MIN:
+            let currentMinValue = state.minInput.inputValue;
+            if (currentMinValue === '') {
+                return {
+                    ...state,
+                    minInput: {
+                        ...state.minInput,
+                        isInputFocused: false
+                    }
+                }
+            } else {
+                return {
+                    ...state,
+                    minInput: {
+                        ...state.minInput,
+                        lastRealValue: currentMinValue,
+                        isInputFocused: false,
+                    }
+                }
+            };
+        case ON_BLUR_MAX:
+            let currentMaxValue = state.maxInput.inputValue;
+            if (currentMaxValue === '') {
+                return {
+                    ...state,
+                    maxInput: {
+                        ...state.maxInput,
+                        isInputFocused: false
+                    }
+                }
+            } else {
+                return {
+                    ...state,
+                    maxInput: {
+                        ...state.maxInput,
+                        lastRealValue: currentMaxValue,
+                        isInputFocused: false,
+                    }
+                }
+            };
         default:
             return state;
     }
 };
 
-const incrementAC = ({type: INCREMENT});
-const resetAC = ({type: RESET});
-const switchVersionAC = ({type: SWITCH_VERSION});
-const openAndCloseSettingsAC = ({type: OPEN_AND_CLOSE_SETTINGS});
-const setValuesAC = ({type: SET_VALUE});
-const updateValuesFromMinAC = ({type: UPDATE_VALUES_FROM_MIN});
-const updateValuesFromMaxAC = ({type: UPDATE_VALUES_FROM_MAX});
-const onFocusMinAC = ({type: ON_FOCUS_MIN});
-const onFocusMaxAC = ({type: ON_FOCUS_MAX});
-const onBlurMinAC = ({type: ON_BLUR_MIN});
-const onBlurMaxAC = ({type: ON_BLUR_MAX});
+export const incrementAC = ({type: INCREMENT});
+export const resetAC = ({type: RESET});
+export const switchVersionAC = ({type: SWITCH_VERSION});
+export const openAndCloseSettingsAC = ({type: OPEN_AND_CLOSE_SETTINGS});
+export const setValuesAC = ({type: SET_VALUE});
+export const updateValuesFromMinAC = ({type: UPDATE_VALUES_FROM_MIN});
+export const updateValuesFromMaxAC = ({type: UPDATE_VALUES_FROM_MAX});
+export const onFocusMinAC = ({type: ON_FOCUS_MIN});
+export const onFocusMaxAC = ({type: ON_FOCUS_MAX});
+export const onBlurMinAC = ({type: ON_BLUR_MIN});
+export const onBlurMaxAC = ({type: ON_BLUR_MAX});
 
 
 export default reducer;

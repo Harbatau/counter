@@ -2,8 +2,10 @@ import React from 'react';
 import './Assets/App.sass';
 import Counter from "./components/counter";
 import Settings from "./components/Settings";
+import {connect} from "react-redux";
+import {switchVersionAC} from "./redux/reducer";
 
-const App = () => {
+const App = (props) => {
 
     const setUnitToCounter = () => {
         this.setState({counter: this.state.counter + 1});
@@ -162,37 +164,21 @@ const App = () => {
 
     return (
         <>
-            <div className={this.state.isFirstVersion ? 'verSwitcher' : 'verSwitcher secondVersion'}
-                 onClick={this.switchVersion}>
+            <div className={props.isFirstVersion ? 'verSwitcher' : 'verSwitcher secondVersion'}
+                 onClick={props.switchVersion}>
                 <span className={'currentVersionIsOne'}>1st version</span>
                 <span className={'currentVersionIsTwo'}>2nd version</span>
                 <div className={'switcher'}/>
             </div>
-            <div className={this.state.isFirstVersion ? 'App' : 'App secondVersionApp'}>
+            <div className={props.isFirstVersion ? 'App' : 'App secondVersionApp'}>
                 <div className={'absoluteWrapper'}>
                     <div className={'theCounter'}>
-                        {!this.state.isSettingsOpened || this.state.isFirstVersion ? 'The Counter' : 'Settings'}
+                        {!props.isSettingsOpened || props.isFirstVersion ? 'The Counter' : 'Settings'}
                     </div>
-                    <div className={!this.state.isSettingsOpened ?
+                    <div className={!props.isSettingsOpened ?
                         'wrapper' : 'wrapper settingsActive'}>
-                        <Counter counterNumber={this.state.counter} minValue={this.state.minCounter}
-                                 maxValue={this.state.maxCounter}
-                                 setUnitToCounter={this.setUnitToCounter} reset={this.reset}
-                                 openAndCloseSettings={this.openAndCloseSettings}
-                                 isFirstVersion={this.state.isFirstVersion}
-                                 isSettingsOpened={this.state.isSettingsOpened}
-                        />
-                        <Settings setValues={this.setValues}
-                                  updateValuesFromInputs={this.updateValuesFromInputs}
-                                  isNumberValuesNotValid={this.state.isNumberValuesNotValid}
-                                  isSettingButtonNotReady={this.state.isSettingButtonNotReady}
-                                  onFocusHandler={this.onFocusHandler}
-                                  onBlurHandler={this.onBlurHandler}
-                                  maxInput={this.state.maxInput} minInput={this.state.minInput}
-                                  isSettingsOpened={this.state.isSettingsOpened}
-                                  openAndCloseSettings={this.openAndCloseSettings}
-                                  isFirstVersion={this.state.isFirstVersion}
-                        />
+                        <Counter />
+                        <Settings />
                     </div>
                 </div>
             </div>
@@ -200,6 +186,24 @@ const App = () => {
     );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        isFirstVersion: state.isFirstVersion,
+        isSettingsOpened: state.isSettingsOpened
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        switchVersion: () => {
+            const action = switchVersionAC;
+            dispatch(action)
+        },
+    }
+};
+
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default ConnectedApp;
 
 

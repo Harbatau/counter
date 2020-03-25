@@ -2,6 +2,7 @@ import React from 'react';
 import '../Assets/App.sass';
 import ControlButton from "./buttons";
 import SettingsInput from "./SettingsInput";
+import {connect} from "react-redux";
 
 const Settings = (props) => {
 
@@ -49,4 +50,22 @@ const Settings = (props) => {
     )
 };
 
-export default Settings;
+const mapStateToProps = (state) => {
+    return {
+        isFirstVersion: state.isFirstVersion,
+        isSettingsOpened: state.isSettingsOpened
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        switchVersion: () => {
+            const action = ;
+            dispatch(action)
+        },
+    }
+};
+
+const ConnectedSettings = connect(mapStateToProps, mapDispatchToProps)(Settings);
+
+export default ConnectedSettings;
