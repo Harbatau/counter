@@ -3,6 +3,7 @@ import '../Assets/App.sass';
 import ControlButton from "./buttons";
 import SettingsInput from "./SettingsInput";
 import {connect} from "react-redux";
+import {openAndCloseSettingsAC, setValuesAC} from "../redux/reducer";
 
 const Settings = (props) => {
 
@@ -37,8 +38,8 @@ const Settings = (props) => {
             <div className={'counterButtons'}>
                 <ControlButton onClickHandler={props.setValues}
                                buttonProperty={'set options'}
-                               disableMonitor={(props.isSettingButtonNotReady ||
-                                   props.isNumberValuesNotValid)}
+                               disableMonitor={props.isSettingButtonNotReady ||
+                                   props.isNumberValuesNotValid}
                 />
                 {!props.isFirstVersion &&
                 <ControlButton onClickHandler={props.openAndCloseSettings} buttonProperty={'cancel'}/>}
@@ -53,16 +54,28 @@ const Settings = (props) => {
 const mapStateToProps = (state) => {
     return {
         isFirstVersion: state.isFirstVersion,
-        isSettingsOpened: state.isSettingsOpened
+        isSettingsOpened: state.isSettingsOpened,
+        isSettingButtonNotReady: state.isSettingButtonNotReady,
+        isNumberValuesNotValid: state.isNumberValuesNotValid,
+        minInput: state.minInput,
+        maxInput: state.maxInput,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        switchVersion: () => {
-            const action = ;
+        openAndCloseSettings: () => {
+            const action = openAndCloseSettingsAC;
             dispatch(action)
         },
+        setValues: () => {
+            const action = setValuesAC;
+            dispatch(action)
+        },
+        updateValuesFromMinAC: () => {
+            const action = setValuesAC;
+            dispatch(action)
+        }
     }
 };
 

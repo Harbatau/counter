@@ -2,7 +2,7 @@ const INCREMENT = 'reducer/INCREMENT';
 const RESET = 'reducer/RESET';
 const SWITCH_VERSION = 'reducer/SWITCH_VERSION';
 const OPEN_AND_CLOSE_SETTINGS = 'reducer/OPEN_AND_CLOSE_SETTINGS';
-const SET_VALUE = 'reducer/SET_VALUE';
+const SET_VALUES = 'reducer/SET_VALUES';
 const UPDATE_VALUES_FROM_MIN = 'reducer/UPDATE_VALUES_FROM_MIN';
 const UPDATE_VALUES_FROM_MAX = 'reducer/UPDATE_VALUES_FROM_MAX';
 const ON_FOCUS_MIN = 'reducer/ON_FOCUS_MIN';
@@ -54,7 +54,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isSettingsOpened: !state.isSettingsOpened
             };
-        case SET_VALUE:
+        case SET_VALUES:
             return {
                 ...state,
                 counter: state.minInput.inputValue === '' ? +state.minInput.lastRealValue : +state.minInput.inputValue,
@@ -160,7 +160,8 @@ const reducer = (state = initialState, action) => {
                         isInputFocused: false,
                     }
                 }
-            };
+            }
+            ;
         case ON_BLUR_MAX:
             let currentMaxValue = state.maxInput.inputValue;
             if (currentMaxValue === '') {
@@ -180,23 +181,46 @@ const reducer = (state = initialState, action) => {
                         isInputFocused: false,
                     }
                 }
-            };
+            }
+            ;
         default:
             return state;
     }
 };
 
-export const incrementAC = ({type: INCREMENT});
-export const resetAC = ({type: RESET});
-export const switchVersionAC = ({type: SWITCH_VERSION});
-export const openAndCloseSettingsAC = ({type: OPEN_AND_CLOSE_SETTINGS});
-export const setValuesAC = ({type: SET_VALUE});
-export const updateValuesFromMinAC = ({type: UPDATE_VALUES_FROM_MIN});
-export const updateValuesFromMaxAC = ({type: UPDATE_VALUES_FROM_MAX});
-export const onFocusMinAC = ({type: ON_FOCUS_MIN});
-export const onFocusMaxAC = ({type: ON_FOCUS_MAX});
-export const onBlurMinAC = ({type: ON_BLUR_MIN});
-export const onBlurMaxAC = ({type: ON_BLUR_MAX});
+export const incrementAC = () => {
+    return {type: INCREMENT}
+};
+export const resetAC = () => {
+    return {type: RESET}
+};
+export const switchVersionAC = () => {
+    return {type: SWITCH_VERSION}
+};
+export const openAndCloseSettingsAC = () => {
+    return {type: OPEN_AND_CLOSE_SETTINGS}
+};
+export const setValuesAC = () => {
+    return {type: SET_VALUES}
+};
+export const updateValuesFromMinAC = (event) => {
+    return {type: UPDATE_VALUES_FROM_MIN, event}
+};
+export const updateValuesFromMaxAC = (event) => {
+    return {type: UPDATE_VALUES_FROM_MAX, event}
+};
+export const onFocusMinAC = () => {
+    return {type: ON_FOCUS_MIN}
+};
+export const onFocusMaxAC = () => {
+    return {type: ON_FOCUS_MAX}
+};
+export const onBlurMinAC = () => {
+    return {type: ON_BLUR_MIN}
+};
+export const onBlurMaxAC = () => {
+    return {type: ON_BLUR_MAX}
+};
 
 
 export default reducer;
