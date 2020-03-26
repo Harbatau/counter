@@ -3,43 +3,49 @@ import '../Assets/App.sass';
 import ControlButton from "./buttons";
 import SettingsInput from "./SettingsInput";
 import {connect} from "react-redux";
-import {openAndCloseSettingsAC, setValuesAC} from "../redux/reducer";
+import {
+    onBlurMaxAC,
+    onBlurMinAC, onFocusMaxAC, onFocusMinAC,
+    openAndCloseSettingsAC,
+    setValuesAC,
+    updateValuesFromMaxAC,
+    updateValuesFromMinAC
+} from "../redux/reducer";
 
 const Settings = (props) => {
 
     let alertMessage = +props.maxInput.inputValue < 0 || props.minInput.inputValue < 0 ? `! values can't be less than zero !` :
         (props.maxInput.inputValue || props.maxInput.lastRealValue) === (props.minInput.inputValue || props.minInput.lastRealValue) ? `! values can't be equal !` :
-        +props.maxInput.inputValue < props.minInput.inputValue || +props.maxInput.lastRealValue < props.minInput.inputValue ||
-        +props.maxInput.inputValue < props.minInput.lastRealValue ? `! minValue can't be greater than maxValue !` : false;
+            +props.maxInput.inputValue < props.minInput.inputValue || +props.maxInput.lastRealValue < props.minInput.inputValue ||
+            +props.maxInput.inputValue < props.minInput.lastRealValue ? `! minValue can't be greater than maxValue !` : false;
 
     return (
         <div className={props.isFirstVersion || (props.isSettingsOpened && !props.isFirstVersion) ?
             'settings' : 'settings displayNone'}>
             <div className={'settingsInputs'}>
-                <SettingsInput blur={() => props.onBlurHandler('maxInput')}
-                               data={props.maxInput} inputName={'max value'}
-                               id={'maxInput'}
-                               change={(e) => {
-                                   props.updateValuesFromInputs(e, 'maxInput')
-                               }}
-                               focus={() => props.onFocusHandler('maxInput')}
-                               isFirstVersion={props.isFirstVersion}
-                />
-                <SettingsInput blur={() => props.onBlurHandler('minInput')}
+                <SettingsInput blur={props.onBlurMinHandler}
                                data={props.minInput} inputName={'min value'}
                                id={'minInput'}
                                change={(e) => {
-                                   props.updateValuesFromInputs(e, 'minInput')
+                                   props.updateValuesFromMin(e)
                                }}
-                               focus={() => props.onFocusHandler('minInput')}
+                               focus={props.onFocusMinHandler}
+                               isFirstVersion={props.isFirstVersion}
+                />
+                <SettingsInput blur={props.onBlurMaxHandler}
+                               data={props.maxInput} inputName={'max value'}
+                               id={'maxInput'}
+                               change={(e) => {
+                                   props.updateValuesFromMax(e)
+                               }}
+                               focus={props.onFocusMaxHandler}
                                isFirstVersion={props.isFirstVersion}
                 />
             </div>
             <div className={'counterButtons'}>
                 <ControlButton onClickHandler={props.setValues}
                                buttonProperty={'set options'}
-                               disableMonitor={props.isSettingButtonNotReady ||
-                                   props.isNumberValuesNotValid}
+                               disableMonitor={props.isSettingButtonNotReady || props.isNumberValuesNotValid}
                 />
                 {!props.isFirstVersion &&
                 <ControlButton onClickHandler={props.openAndCloseSettings} buttonProperty={'cancel'}/>}
@@ -65,17 +71,37 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         openAndCloseSettings: () => {
-            const action = openAndCloseSettingsAC;
+            const action = openAndCloseSettingsAC();
             dispatch(action)
         },
         setValues: () => {
-            const action = setValuesAC;
+            const action = setValuesAC();
             dispatch(action)
         },
-        updateValuesFromMinAC: () => {
-            const action = setValuesAC;
+        updateValuesFromMin: (e) => {
+            const action = updateValuesFromMinAC(e);
             dispatch(action)
-        }
+        },
+        updateValuesFromMax: (e) => {
+            const action = updateValuesFromMaxAC(e);
+            dispatch(action)
+        },
+        onBlurMinHandler: () => {
+            const action = onBlurMinAC();
+            dispatch(action)
+        },
+        onBlurMaxHandler: () => {
+            const action = onBlurMaxAC();
+            dispatch(action)
+        },
+        onFocusMinHandler: () => {
+            const action = onFocusMinAC();
+            dispatch(action)
+        },
+        onFocusMaxHandler: () => {
+            const action = onFocusMaxAC();
+            dispatch(action)
+        },
     }
 };
 

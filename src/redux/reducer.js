@@ -42,7 +42,7 @@ const reducer = (state = initialState, action) => {
         case RESET:
             return {
                 ...state,
-                counter: state.minCounter
+                counter: +state.minCounter
             };
         case SWITCH_VERSION:
             return {
@@ -58,7 +58,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 counter: state.minInput.inputValue === '' ? +state.minInput.lastRealValue : +state.minInput.inputValue,
-                minCounter: state.minInput.inputValue === '' ? state.minInput.lastRealValue : state.minInput.inputValue,
+                minCounter: state.minInput.inputValue === '' ? +state.minInput.lastRealValue : +state.minInput.inputValue,
                 maxCounter: state.maxInput.inputValue === '' ? +state.maxInput.lastRealValue : +state.maxInput.inputValue,
                 isSettingButtonNotReady: true,
                 minInput: {...state.minInput, isValueEqualToCurrentSetting: true},
@@ -67,7 +67,7 @@ const reducer = (state = initialState, action) => {
             };
         case UPDATE_VALUES_FROM_MIN:
             let minValue = action.event.currentTarget.value;
-            if (+minValue > 999) return;
+            if (+minValue > 999) return state;
             let newMinState = {...state, minInput: {...state.minInput, inputValue: minValue}};
             if ((state.minCounter === +minValue &&
                 state.maxCounter === +state.maxInput.lastRealValue) ||
@@ -96,7 +96,7 @@ const reducer = (state = initialState, action) => {
             return newMinState;
         case UPDATE_VALUES_FROM_MAX:
             let maxValue = action.event.currentTarget.value;
-            if (+maxValue > 999) return;
+            if (+maxValue > 999) return state;
             let newMaxState = {...state, maxInput: {...state.maxInput, inputValue: maxValue}};
             if ((state.maxCounter === +maxValue &&
                 state.minCounter === +state.minInput.lastRealValue) ||
@@ -161,7 +161,6 @@ const reducer = (state = initialState, action) => {
                     }
                 }
             }
-            ;
         case ON_BLUR_MAX:
             let currentMaxValue = state.maxInput.inputValue;
             if (currentMaxValue === '') {
@@ -182,7 +181,6 @@ const reducer = (state = initialState, action) => {
                     }
                 }
             }
-            ;
         default:
             return state;
     }

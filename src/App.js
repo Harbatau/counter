@@ -175,8 +175,7 @@ const App = (props) => {
                     <div className={'theCounter'}>
                         {!props.isSettingsOpened || props.isFirstVersion ? 'The Counter' : 'Settings'}
                     </div>
-                    <div className={!props.isSettingsOpened ?
-                        'wrapper' : 'wrapper settingsActive'}>
+                    <div className={!props.isSettingsOpened ? 'wrapper' : 'wrapper settingsActive'}>
                         <Counter />
                         <Settings />
                     </div>
@@ -196,7 +195,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         switchVersion: () => {
-            const action = switchVersionAC;
+            const action = switchVersionAC();
             dispatch(action)
         },
     }

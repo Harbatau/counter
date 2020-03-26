@@ -1,7 +1,6 @@
 import React from 'react';
 import '../Assets/App.sass';
 
-
 const SettingsInput = (props) => {
 
     let isFocused = props.data.isInputFocused,

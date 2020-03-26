@@ -1,5 +1,6 @@
 import React from 'react';
 import '../Assets/App.sass';
+import {connect} from "react-redux";
 
 const CounterDisplay = (props) => {
 
@@ -23,15 +24,26 @@ const CounterDisplay = (props) => {
                     </svg>}
             </div>
             <div className={'flex'}>
-               <div className={'currentSettings'}>Current max value:
-                    <div className={'currSetVal'}>{props.maxValue}</div>
-                </div>
-                <div className={'currentSettings'}>Current min value:
+               <div className={'currentSettings'}>Current min value:
                     <div className={'currSetVal'}>{props.minValue}</div>
+                </div>
+                <div className={'currentSettings'}>Current max value:
+                    <div className={'currSetVal'}>{props.maxValue}</div>
                 </div>
             </div>
         </div>
     )
 };
 
-export default CounterDisplay;
+const mapStateToProps = (state) => {
+    return {
+        isFirstVersion: state.isFirstVersion,
+        maxValue: state.maxCounter,
+        minValue: state.minCounter,
+        counterNumber: state.counter
+    }
+};
+
+const ConnectedCounterDisplay = connect(mapStateToProps, null)(CounterDisplay);
+
+export default ConnectedCounterDisplay;
