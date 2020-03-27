@@ -50,9 +50,28 @@ const reducer = (state = initialState, action) => {
                 isFirstVersion: !state.isFirstVersion
             };
         case OPEN_AND_CLOSE_SETTINGS:
-            return {
+            if (state.isSettingsOpened) {
+                return {
+                    ...state,
+                    isSettingsOpened: !state.isSettingsOpened,
+                    minInput: {
+                        ...state.minInput,
+                        inputValue: `${state.minCounter}`,
+                        lastRealValue: `${state.minCounter}`,
+                        isInputFocused: false,
+                        isValueEqualToCurrentSetting: true
+                    },
+                    maxInput: {
+                        ...state.maxInput,
+                        inputValue: `${state.maxCounter}`,
+                        lastRealValue: `${state.maxCounter}`,
+                        isInputFocused: false,
+                        isValueEqualToCurrentSetting: true
+                    }
+                }
+            } else return {
                 ...state,
-                isSettingsOpened: !state.isSettingsOpened
+                isSettingsOpened: !state.isSettingsOpened,
             };
         case SET_VALUES:
             return {
@@ -105,7 +124,7 @@ const reducer = (state = initialState, action) => {
             } else newMaxState = {...newMaxState, isSettingButtonNotReady: false};
             if (+maxValue <= +state.minInput.lastRealValue || +maxValue < 0) {
                 newMaxState = {...newMaxState, isNumberValuesNotValid: true}
-            } else newMaxState = {...newMaxState, isNumberValuesNotValid: true};
+            } else newMaxState = {...newMaxState, isNumberValuesNotValid: false};
             if (+maxValue === state.maxCounter ||
                 (maxValue === '' && (+state.maxInput.lastRealValue === state.maxCounter))) {
                 newMaxState = {
