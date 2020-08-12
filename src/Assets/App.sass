@@ -7,7 +7,34 @@
   font-style: normal
   font-weight: normal
 
+@function strip-unit($value)
+  @return $value / ($value * 0 + 1)
+
+
+$min_width: 400px
+$max_width: 1000px
+$min_font: 40px
+$max_font: 100px
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size)
+  $u1: unit($min-vw)
+  $u2: unit($max-vw)
+  $u3: unit($min-font-size)
+  $u4: unit($max-font-size)
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4
+    &
+      font-size: $min-font-size
+      @media screen and (min-width: $min-vw)
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}))
+
+      @media screen and (min-width: $max-vw)
+        font-size: $max-font-size
+
+
 .App
+  display: grid
+  place-items: center
   background-image: url("./images/Gradient-Mesh-27.jpg")
   background-size: 600% 100%
   text-align: center
@@ -16,18 +43,19 @@
   animation: App-Background 12s ease infinite
   box-sizing: border-box
   text-transform: uppercase
-  position: relative
+  position: absolute
   user-select: none
 
 .absoluteWrapper
-  position: absolute
-  top: 50%
-  left: 50%
-  transform: translateX(-50%) translateY(-50%)
+  width: 80%
+  max-width: 800px
+  min-width: 400px
+  @media screen and (max-width: 600px)
+    width: 90%
 
 .wrapper
   margin: 0 auto
-  width: 500px
+  width: 70%
   background: rgba(255, 255, 255, 0.1)
   backdrop-filter: blur(5px)
   box-shadow: 0 0 10px white
@@ -36,14 +64,18 @@
   box-sizing: border-box
 
 .theCounter
-  width: 800px
-  font-family: 'Anders'
+  width: 100%
+  font-family: 'Anders', sans-serif
   font-weight: bold
   font-size: 100px
   color: white
   text-transform: none
   position: relative
   bottom: -50px
+  white-space: nowrap
+  @include fluid-type($min_width, $max_width, $min_font, $max_font)
+  @media screen and (max-width: 600px)
+    bottom: -20px
 
 input
   cursor: text
@@ -113,7 +145,7 @@ button
   font-size: 20px
   font-weight: bold
   text-transform: uppercase
-  text-shadow: 0px 0px 7px #FF1177, 0px 0px 10px #FF1177
+  text-shadow: 0 0 7px #FF1177, 0 0 10px #FF1177
 
 .displayNone
   display: none
@@ -171,7 +203,7 @@ button
   width: 100%
   cursor: text
   transition: transform 0.3s
-  transform-origin: 0% 50%
+  transform-origin: 0 50%
 
 .labelWrapper
   display: flex
@@ -191,6 +223,7 @@ button
 .verSwitcher
   user-select: none
   z-index: 2
+  min-width: 190px
   cursor: pointer
   display: block
   border: 2px solid rgba(255, 255, 255, 0.6)
@@ -340,7 +373,7 @@ button
 
   .theCounter
     font-family: 'Great Vibes', cursive
-    font-size: 100px
+    @include fluid-type($min_width, $max_width, $min_font, $max_font)
     width: 100%
     color: white
     text-transform: none
@@ -370,7 +403,7 @@ svg
   stroke: white
   stroke-dasharray: 6%, 29%
   stroke-width: 5px
-  stroke-dashoffset: 0%
+  stroke-dashoffset: 0
   animation: stroke-offset 5.5s infinite linear
 
 .text-copy:nth-child(1)
@@ -398,7 +431,7 @@ svg
   stroke: #c6e2ff
   stroke-dasharray: 6%, 29%
   stroke-width: 7px
-  stroke-dashoffset: 0%
+  stroke-dashoffset: 0
   animation: stroke-offset 5.5s infinite linear
 
 .text-copy-alert:nth-child(1)

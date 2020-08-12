@@ -1,14 +1,14 @@
 import React from 'react';
-import '../Assets/App.sass';
+import '../../Assets/App.sass';
 
 const SettingsInput = (props) => {
 
-    let isFocused = props.data.isInputFocused,
+    const isFocused = props.data.isInputFocused,
         isEqual = props.data.isValueEqualToCurrentSetting,
         valueName = props.inputName,
         realValue = props.data.lastRealValue;
 
-    let labelContent = !isFocused && isEqual ? `Type ${valueName} here` : isEqual && isFocused &&
+    const labelContent = !isFocused && isEqual ? `Type ${valueName} here` : isEqual && isFocused &&
     props.data.inputValue === realValue ?
         `This ${valueName} is equal to current` : isFocused ? `${valueName}` : `${valueName} will be set: `;
 

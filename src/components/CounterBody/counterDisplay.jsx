@@ -1,10 +1,10 @@
 import React from 'react';
-import '../Assets/App.sass';
+import '../../Assets/App.sass';
 import {connect} from "react-redux";
 
 const CounterDisplay = (props) => {
 
-    let svgClass = props.alertMonitor ? 'text-copy' : 'text-copy-alert';
+    const svgClass = props.alertMonitor ? 'text-copy' : 'text-copy-alert';
 
     return (
         <div className={'counterDisplay'}>
@@ -15,16 +15,16 @@ const CounterDisplay = (props) => {
                             <text textAnchor="middle" x="50%" y="80%">{props.counterNumber}</text>
                         </symbol>
                         <g className="g-ants">
-                            <use xlinkHref="#s-text" className={svgClass}></use>
-                            <use xlinkHref="#s-text" className={svgClass}></use>
-                            <use xlinkHref="#s-text" className={svgClass}></use>
-                            <use xlinkHref="#s-text" className={svgClass}></use>
-                            <use xlinkHref="#s-text" className={svgClass}></use>
+                            <use xlinkHref="#s-text" className={svgClass}/>
+                            <use xlinkHref="#s-text" className={svgClass}/>
+                            <use xlinkHref="#s-text" className={svgClass}/>
+                            <use xlinkHref="#s-text" className={svgClass}/>
+                            <use xlinkHref="#s-text" className={svgClass}/>
                         </g>
                     </svg>}
             </div>
             <div className={'flex'}>
-               <div className={'currentSettings'}>Current min value:
+                <div className={'currentSettings'}>Current min value:
                     <div className={'currSetVal'}>{props.minValue}</div>
                 </div>
                 <div className={'currentSettings'}>Current max value:

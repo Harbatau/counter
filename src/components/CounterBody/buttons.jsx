@@ -1,8 +1,9 @@
 import React from 'react';
-import '../Assets/App.sass';
+import '../../Assets/App.sass';
 
 const ControlButton = (props) => {
-    return(
+
+    return (
         <button onClick={props.onClickHandler} disabled={props.disableMonitor}>
             {props.buttonProperty}
         </button>
